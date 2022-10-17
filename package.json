@@ -1,5 +1,5 @@
 {
-  "name": "sdk_fidelio_suite_8",
+  "name": "@vladislavbogomolov/sdk-fidelio-suite-8",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,8 +15,8 @@
     "start": "npx nodemon src/index.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Vladislav Bogomolov",
+  "license": "",
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
