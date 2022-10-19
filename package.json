@@ -1,8 +1,14 @@
 {
-  "name": "@vladislavbogomolov/sdk-fidelio-suite-8",
-  "version": "1.0.0",
+  "name": "sdk-fidelio-suite",
+  "version": "1.0.18",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "src/index.d.ts",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladislavbogomolov/sdk-fidelio-suite-8"
+  },
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
@@ -22,8 +28,8 @@
     "dotenv": "^16.0.1",
     "fast-xml-parser": "^4.0.8",
     "jszip": "^3.10.0",
-    "request": "^2.88.2",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.4.23",
+    "dayjs": "^1.11.5"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

@@ -10,6 +10,7 @@ import {profileFields} from "../requests/objects/profile/ProfileQueryFields";
 import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditionFields";
 import {ProfileCondition} from "../requests/objects/profile/ProfileCondition";
 
+
 export class Profile {
 
     #attributes: IProfile = null; // Data Fidelio
