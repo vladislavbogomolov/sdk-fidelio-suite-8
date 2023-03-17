@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {InternalAxiosRequestConfig} from "axios";
 import 'dotenv/config'
 import JSZip from "jszip";
 import {parseResponse} from "../../responses";
@@ -16,7 +16,7 @@ export const axiosApiInstance = axios.create({
 
 
 axiosApiInstance.interceptors.request.use(
-    async (req: AxiosRequestConfig) => {
+    async (req: InternalAxiosRequestConfig) => {
         fidelioDebug('send...')
         const zip = new JSZip();
         fidelioDebug(req.data)
