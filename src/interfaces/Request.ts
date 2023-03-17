@@ -1,5 +1,5 @@
 import {IFieldsRequestAvailabilityForWeb} from "./availability";
-import {IOperation} from "./types";
+import {IDataType, IOperation} from "./types";
 import {IProfileConditionFields} from "./profile";
 
 /*export interface IFidelioRequest {
@@ -24,6 +24,7 @@ export interface IFieldSimple {
 export interface IConditionObjectAttributes {
     name: IProfileConditionFields;
     operation: IOperation;
+    dataType: IDataType
 }
 
 export interface IConditionObject {

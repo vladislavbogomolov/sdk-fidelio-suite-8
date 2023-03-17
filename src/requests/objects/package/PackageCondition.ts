@@ -1,14 +1,15 @@
-import {IOperation, IOperators} from "../../../interfaces/types";
+import {IDataType, IOperation, IOperators} from "../../../interfaces/types";
 
 export class PackageCondition{
     public conditions: any[] = [];
 
-    add(name: any, value: any, operation: IOperation = 'eq' , operator: IOperators = 'AND') {
+    add(name: any, value: any, operation: IOperation = 'eq' , operator: IOperators = 'AND', dataType: IDataType = 'String') {
         this.conditions.push({
             name,
             value,
             operation,
-            operator
+            operator,
+            dataType
         })
 
         return this
@@ -18,15 +19,15 @@ export class PackageCondition{
         return this.conditions
     }
 
-    addAnd(name: any, value: any, operation: IOperation = 'eq') {
+    addAnd(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
         return this.add(name, value, operation, "AND")
     }
 
-    addNot(name: any, value: any, operation: IOperation = 'eq') {
+    addNot(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
         return this.add(name, value, operation, "NOT")
     }
 
-    addOr(name: any, value: any, operation: IOperation = 'eq') {
+    addOr(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
         return this.add(name, value, operation, "OR")
     }
 }

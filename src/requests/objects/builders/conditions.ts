@@ -45,7 +45,8 @@ const createConditionLinkObject = (value: any): ILinkObject => {
                     _: value.value,
                     $: {
                         name: value.name,
-                        operation: value.operation
+                        operation: value.operation,
+                        dataType: value.dataType
                     }
                 }
             },

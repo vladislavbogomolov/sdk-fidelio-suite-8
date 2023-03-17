@@ -135,7 +135,6 @@ export class Profile {
 
     where<T extends keyof IProfileConditionKeyFields, K extends IProfileConditionKeyFields>(name: string, value: K[T], operation: IOperation = 'eq'): Profile {
         this.#conditions.addAnd(name, value, operation)
-
         return this
     }
 

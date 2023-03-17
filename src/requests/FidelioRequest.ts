@@ -38,11 +38,12 @@ export class FidelioRequest {
 
     /**
      * Get data from tables - Custom Query
+     * @param conditions
      * @param from
      * @param fields
      */
-    addCustomQueryRequest = (from: string, fields: string[]) => {
-        return this.addQuery(null, fields, "CustomQuery", "query", from)
+    addCustomQueryRequest = (conditions: PackageCondition = null, from: string, fields: string[]) => {
+        return this.addQuery(conditions?.conditions ?? null, fields, "CustomQuery", "query", from)
     }
 
     // --------------------------------------------  PACKAGES  ----------------------------------------------------------
