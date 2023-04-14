@@ -1,4 +1,3 @@
-import xml2js from 'xml2js'
 import {IFieldsRequestAvailabilityForWeb} from "../interfaces/availability";
 import {AvailabilityForWeb} from "./objects/availability-for-web";
 import {IProfileFields, IProfileUpdateFields} from "../interfaces/profile";
@@ -15,6 +14,7 @@ import {IPackageFields} from "../interfaces/package";
 import {IMethod, ReqType} from "../interfaces/types";
 import {deleteReservation} from "./objects/commands/commands";
 import {IDeleteReservationOption} from "../interfaces/commamds";
+import xml2js from "xml2js";
 
 
 const builder = new xml2js.Builder();

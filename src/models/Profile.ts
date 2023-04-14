@@ -1,5 +1,4 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
-import {ReservationCondition} from "../requests/objects/reservation/ReservationCondition";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";

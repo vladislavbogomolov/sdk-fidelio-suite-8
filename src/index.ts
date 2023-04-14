@@ -6,7 +6,7 @@ import {Package} from "./models/Package";
 import {Profile} from "./models/Profile";
 import {CustomQuery} from "./models/CustomQuery";
 
-module.exports = {Profile, Package, Reservation, AvailabilityForWeb}
+export {CustomQuery, Profile, Package, Reservation, AvailabilityForWeb, ReservationCondition, FidelioRequest}
 
 
 async function test() {
