@@ -1,10 +1,9 @@
 import { AvailabilityForWeb } from "./models/AvailabilityForWeb";
 import { Profile } from "./models/Profile";
 import { Reservation } from "./models/Reservation";
-import { FidelioRequest } from "./requests/FidelioRequest";
 import {IConnection} from "./config/connections";
 
-export class Fidelio{
+export class Fidelio {
     public AvailabilityForWeb = new AvailabilityForWeb();
     public Profile = new Profile();
     public Reservation = new Reservation();
