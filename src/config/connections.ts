@@ -1,6 +1,18 @@
-export const connections: any = [
+type IConnection = {
+    IS_MASTER: boolean;
+    USER_AGENT: string;
+    FIDELIO_VERSION: string;
+    FIDELIO_USERNAME: string;
+    DEBUG_ENABLED: boolean;
+    FIDELIO_VENDOR: string;
+    FIDELIO_PASSWORD: string;
+    CODE: string;
+    URL: string
+}
+export const Connections: IConnection[] = [
     {
         URL: "",
+        CODE: "",
         FIDELIO_VERSION: "1.1.0",
         FIDELIO_VENDOR: "sdk-fidelio-suite",
         FIDELIO_USERNAME: "",
