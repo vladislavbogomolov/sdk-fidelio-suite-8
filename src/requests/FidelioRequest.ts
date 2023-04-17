@@ -22,6 +22,12 @@ const builder = new xml2js.Builder();
 export class FidelioRequest {
 
     protected _requestObject: any[] = [];
+    protected connection: string;
+
+    setConnection (connection: string) {
+        this.connection = connection;
+        return this
+    }
 
     // -------------------------------------------  AVAILABILITY  -------------------------------------------------------
 
@@ -166,6 +172,9 @@ export class FidelioRequest {
 
 
 
-    send = () => axiosApiInstance.post(process.env.FIDELIO_PATH, this.getBody());
+    send = () => {
+        console.log('OK', this.connection);
+        return axiosApiInstance.post(process.env.FIDELIO_PATH, this.getBody());
+    };
 
 }

@@ -10,7 +10,7 @@ import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditio
 import {ProfileCondition} from "../requests/objects/profile/ProfileCondition";
 
 
-export class Profile {
+export class Profile extends FidelioRequest{
 
     #attributes: IProfile = null; // Data Fidelio
     readonly #original: IProfile = null; // Data Fidelio
@@ -18,6 +18,7 @@ export class Profile {
     readonly #privateKey = 'ProfileID'
 
     constructor(profile: IProfile = null) {
+        super();
         if (profile) {
             this.#original = this.#hydrate(profile);
             this.#attributes = this.#hydrate(profile);
@@ -58,7 +59,7 @@ export class Profile {
 
     async find(ProfileID: number): Promise<Profile> {
 
-        const profiles = await new FidelioRequest().addProfileQueryRequest(new ProfileCondition().add(this.#privateKey, ProfileID)).send();
+        const profiles = await this.addProfileQueryRequest(new ProfileCondition().add(this.#privateKey, ProfileID)).send();
         const profile = profiles.data[0]
         const newClass = new Profile(profile)
         newClass.where(this.#privateKey, profile[this.#privateKey])
@@ -72,7 +73,7 @@ export class Profile {
      */
 
     async get(): Promise<Profile[]> {
-        const res = await new FidelioRequest().addProfileQueryRequest(this.#conditions).send();
+        const res = await this.addProfileQueryRequest(this.#conditions).send();
         const classes: Profile[] = []
 
         res.data.forEach((profile: any) => {
@@ -92,7 +93,7 @@ export class Profile {
      */
 
     async delete(ProfileID: number = null, options: IDeleteReservationOption = null) {
-        return new FidelioRequest().addReservationDelete(ProfileID ?? this.#original[this.#privateKey], options = null).send();
+        return this.addReservationDelete(ProfileID ?? this.#original[this.#privateKey], options = null).send();
     }
 
 

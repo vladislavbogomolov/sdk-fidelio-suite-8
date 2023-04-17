@@ -1,22 +1,33 @@
-import {FidelioRequest} from "./requests/FidelioRequest";
-import {ReservationCondition} from "./requests/objects/reservation/ReservationCondition";
-import {AvailabilityForWeb} from "./models/AvailabilityForWeb";
-import {Reservation} from "./models/Reservation";
-import {Package} from "./models/Package";
-import {Profile} from "./models/Profile";
-import {CustomQuery} from "./models/CustomQuery";
+import {Fidelio} from "./Fidelio";
 
-export {CustomQuery, Profile, Package, Reservation, AvailabilityForWeb, ReservationCondition, FidelioRequest}
 
+/*
 
 async function test() {
+    // const result = await new CustomQuery().where('XCMS_NAME3', 'Rik').get('XCMS', ['XCMS_NAME3'])
+    // console.log(result)
+    // const profile = await new Profile().find(545225);
+    // console.log(profile.data)
 
+    const connectionPA = new Fidelio('PA')
+    const connectionAM = new Fidelio('AM')
 
+    connectionPA.AvailabilityForWeb.get({
+        GuestArrival: new Date('2023-06-01'),
+        GuestDeparture: new Date('2023-06-05'),
+        NoOfAdults: 1
+    }).then((e:any) => {
+        console.log('PA', e.data[0])
+    })
 
-    const result = await new CustomQuery().where('XCMS_NAME3', 'Rik').get('XCMS', ['XCMS_NAME3'])
-
-    console.log(result)
-
+    connectionAM.AvailabilityForWeb.get({
+        GuestArrival: new Date('2023-06-05'),
+        GuestDeparture: new Date('2023-06-09'),
+        NoOfAdults: 1
+    }).then((e:any) => {
+        console.log('AM', e.data[0])
+    })
+    // console.log(b.data)
 }
 
-test()
+test()*/

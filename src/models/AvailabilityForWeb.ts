@@ -1,16 +1,12 @@
 import {IFieldsRequestAvailabilityForWeb} from "../interfaces/availability";
 import {FidelioRequest} from "../requests/FidelioRequest";
 
-export class AvailabilityForWeb {
+export class AvailabilityForWeb extends FidelioRequest{
     private fields: IFieldsRequestAvailabilityForWeb;
     private dataOrigin: any
 
-    constructor(fields: IFieldsRequestAvailabilityForWeb = null) {
-        this.fields = fields
-    }
-
-    async get() {
-        const response = await new FidelioRequest().addAvailabilityRequest(this.fields).send()
+    async get(fields: IFieldsRequestAvailabilityForWeb = null) {
+        const response = await this.addAvailabilityRequest(fields).send()
         this.dataOrigin = response.data
         return this;
     }

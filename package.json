@@ -1,9 +1,9 @@
 {
   "name": "sdk-fidelio-suite",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "",
   "main": "dist/index.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "type": "commonjs",
   "repository": {
     "type": "git",

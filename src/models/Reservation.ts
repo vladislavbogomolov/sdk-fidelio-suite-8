@@ -8,7 +8,7 @@ import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 
-export class Reservation {
+export class Reservation extends FidelioRequest{
 
     #attributes: IReservation = null; // Data Fidelio
     readonly #original: IReservation = null; // Data Fidelio
@@ -16,6 +16,7 @@ export class Reservation {
     readonly #privateKey = 'GuestNum'
 
     constructor(reservation: IReservation = null) {
+        super();
         if (reservation) {
             this.#original = this.#hydrate(reservation);
             this.#attributes = this.#hydrate(reservation);
@@ -56,7 +57,7 @@ export class Reservation {
 
     async find(GuestNum: number): Promise<Reservation> {
 
-        const reservations = await new FidelioRequest().addReservationQueryRequest(new ReservationCondition().add("GuestNum", GuestNum)).send();
+        const reservations = await this.addReservationQueryRequest(new ReservationCondition().add("GuestNum", GuestNum)).send();
         const reservation = reservations.data[0]
         const newClass = new Reservation(reservation)
         newClass.where(this.#privateKey, reservation.GuestNum)
@@ -70,7 +71,7 @@ export class Reservation {
      */
 
     async get(): Promise<Reservation[]> {
-        const res = await new FidelioRequest().addReservationQueryRequest(this.#conditions).send();
+        const res = await this.addReservationQueryRequest(this.#conditions).send();
         const classes: Reservation[] = []
 
         res.data.forEach((reservation: any) => {
@@ -89,7 +90,7 @@ export class Reservation {
      */
 
     async delete(GuestNum: number = null, options: IDeleteReservationOption = null) {
-        return new FidelioRequest().addReservationDelete(GuestNum ?? this.#original.GuestNum, options = null).send();
+        return this.addReservationDelete(GuestNum ?? this.#original.GuestNum, options = null).send();
     }
 
 
