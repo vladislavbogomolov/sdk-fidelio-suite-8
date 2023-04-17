@@ -15,6 +15,7 @@ import {IMethod, ReqType} from "../interfaces/types";
 import {deleteReservation} from "./objects/commands/commands";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import xml2js from "xml2js";
+import {Connections, IConnection} from "../config/connections";
 
 
 const builder = new xml2js.Builder();
@@ -22,9 +23,9 @@ const builder = new xml2js.Builder();
 export class FidelioRequest {
 
     protected _requestObject: any[] = [];
-    protected connection: string;
+    protected connection: IConnection;
 
-    setConnection (connection: string) {
+    setConnection (connection: IConnection) {
         this.connection = connection;
         return this
     }
@@ -174,7 +175,12 @@ export class FidelioRequest {
 
     send = () => {
         console.log('OK', this.connection);
-        return axiosApiInstance.post(process.env.FIDELIO_PATH, this.getBody());
+        try {
+            return axiosApiInstance.post(this.connection.URL, this.getBody());
+        } catch (e) {
+            console.error(`Connection ${this.connection} not exists`)
+        }
+
     };
 
 }

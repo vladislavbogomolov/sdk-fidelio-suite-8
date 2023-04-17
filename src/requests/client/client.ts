@@ -5,7 +5,7 @@ import {parseResponse} from "../../responses";
 import {fidelioDebug} from "../../helpers/helpers";
 
 export const axiosApiInstance = axios.create({
-    baseURL: process.env.FIDELIO_ENDPOINT,
+    // baseURL: process.env.FIDELIO_ENDPOINT,
     headers: {
         "V8-supported": "Zip/Msg",
         "content-type": "V8/ZIP",

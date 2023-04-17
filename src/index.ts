@@ -1,17 +1,16 @@
 import {Fidelio} from "./Fidelio";
 
+export {Fidelio}
+
 
 /*
-
 async function test() {
     // const result = await new CustomQuery().where('XCMS_NAME3', 'Rik').get('XCMS', ['XCMS_NAME3'])
     // console.log(result)
     // const profile = await new Profile().find(545225);
     // console.log(profile.data)
 
-    const connectionPA = new Fidelio('PA')
-    const connectionAM = new Fidelio('AM')
-
+    const connectionPA = new Fidelio();
     connectionPA.AvailabilityForWeb.get({
         GuestArrival: new Date('2023-06-01'),
         GuestDeparture: new Date('2023-06-05'),
@@ -20,14 +19,9 @@ async function test() {
         console.log('PA', e.data[0])
     })
 
-    connectionAM.AvailabilityForWeb.get({
-        GuestArrival: new Date('2023-06-05'),
-        GuestDeparture: new Date('2023-06-09'),
-        NoOfAdults: 1
-    }).then((e:any) => {
-        console.log('AM', e.data[0])
-    })
-    // console.log(b.data)
+    const connectionB = new FidelioRequest();
+
 }
 
-test()*/
+test()
+*/
