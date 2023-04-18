@@ -20,6 +20,7 @@ export interface IFieldsRequestAvailabilityForWeb {
 }
 
 
+
 export interface IFieldsResponseAvailabilityForWeb {
     RateCode: string,
     RoomType: string,

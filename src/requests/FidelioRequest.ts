@@ -16,6 +16,8 @@ import {deleteReservation} from "./objects/commands/commands";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import xml2js from "xml2js";
 import {Connections, IConnection} from "../config/connections";
+import {ChildrenCategoriesFields} from "./objects/ChildrenCategories";
+import {IFieldsRequestChildrenCategories} from "../interfaces/ChildrenCategories";
 
 
 const builder = new xml2js.Builder();
@@ -25,7 +27,7 @@ export class FidelioRequest {
     protected _requestObject: any[] = [];
     protected connection: IConnection;
 
-    setConnection (connection: IConnection) {
+    setConnection(connection: IConnection) {
         this.connection = connection;
         return this
     }
@@ -39,6 +41,17 @@ export class FidelioRequest {
     addAvailabilityRequest = (fields: IFieldsRequestAvailabilityForWeb) => {
         const request = AvailabilityForWeb(fields);
         return this.addRequest(request)
+    }
+
+    // ----------------------------------------  ChildrenCategories  ---------------------------------------------------
+
+    /**
+     * Availability - Selection
+     * @param conditions
+     * @param fields
+     */
+    addChildrenCategoriesRequest = (conditions: ProfileCondition, fields: IFieldsRequestChildrenCategories[] = null ) => {
+        return this.addQuery(conditions?.conditions ?? null, fields ?? ChildrenCategoriesFields, "ChildrenCategories")
     }
 
     // -------------------------------------------  CUSTOM QUERY  -------------------------------------------------------
@@ -120,7 +133,7 @@ export class FidelioRequest {
      * @param GuestNum
      * @param options
      */
-    addReservationDelete = (GuestNum: number, options:IDeleteReservationOption = null) => {
+    addReservationDelete = (GuestNum: number, options: IDeleteReservationOption = null) => {
         const request = deleteReservation(GuestNum, options)
         return this.addRequest(request)
     }
@@ -172,9 +185,8 @@ export class FidelioRequest {
     }
 
 
-
     send = () => {
-        console.log('OK', this.connection);
+
         try {
             return axiosApiInstance.post(this.connection.URL, this.getBody());
         } catch (e) {

@@ -1,4 +1,4 @@
-import {IFieldsRequestAvailabilityForWeb} from "../interfaces/availability";
+import {IFieldsRequestAvailabilityForWeb, IFieldsResponseAvailabilityForWeb} from "../interfaces/availability";
 import {FidelioRequest} from "../requests/FidelioRequest";
 
 export class AvailabilityForWeb extends FidelioRequest{
@@ -19,7 +19,7 @@ export class AvailabilityForWeb extends FidelioRequest{
         return this.dataOrigin
     }
 
-    toJSON() {
+    toJSON(): IFieldsResponseAvailabilityForWeb[] {
         return this.dataOrigin
     }
 
