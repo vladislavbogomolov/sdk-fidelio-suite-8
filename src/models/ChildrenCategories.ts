@@ -2,7 +2,6 @@ import {FidelioRequest} from "../requests/FidelioRequest";
 import {IFieldsRequestChildrenCategories, IFieldsResponseChildrenCategories} from "../interfaces/ChildrenCategories";
 
 export class ChildrenCategories extends FidelioRequest{
-    private fields: IFieldsRequestChildrenCategories;
     private dataOrigin: any
 
     async get(fields: IFieldsRequestChildrenCategories[] = null) {

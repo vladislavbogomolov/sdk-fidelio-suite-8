@@ -18,6 +18,8 @@ import xml2js from "xml2js";
 import {Connections, IConnection} from "../config/connections";
 import {ChildrenCategoriesFields} from "./objects/ChildrenCategories";
 import {IFieldsRequestChildrenCategories} from "../interfaces/ChildrenCategories";
+import {IRateListFields} from "../interfaces/RateList";
+import {RateList} from "./objects/RateList";
 
 
 const builder = new xml2js.Builder();
@@ -46,12 +48,23 @@ export class FidelioRequest {
     // ----------------------------------------  ChildrenCategories  ---------------------------------------------------
 
     /**
-     * Availability - Selection
+     * Children Categories - Selection
      * @param conditions
      * @param fields
      */
-    addChildrenCategoriesRequest = (conditions: ProfileCondition, fields: IFieldsRequestChildrenCategories[] = null ) => {
+    addChildrenCategoriesRequest = (conditions: any, fields: IFieldsRequestChildrenCategories[] = null ) => {
         return this.addQuery(conditions?.conditions ?? null, fields ?? ChildrenCategoriesFields, "ChildrenCategories")
+    }
+
+    // ----------------------------------------  Children Categories  ---------------------------------------------------
+
+    /**
+     * Rate List - Selection
+     * @param conditions
+     * @param fields
+     */
+    addRateListRequest = (conditions: PackageCondition = null, fields: IRateListFields[] = null ) => {
+        return this.addQuery(conditions?.conditions ?? null, fields ?? RateList, "RateList")
     }
 
     // -------------------------------------------  CUSTOM QUERY  -------------------------------------------------------

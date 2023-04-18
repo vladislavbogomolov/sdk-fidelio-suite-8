@@ -56,6 +56,10 @@ export interface IProfile {
     ProfileID: ProfileID,
     GuestFirstname: GuestFirstname,
     GuestName: GuestName,
+    Name2: string,
+    LoginName: string,
+    LoginPassword: string,
+    CorporateID: string,
     ProfileType: ProfileType,
     ProfileCategory: ProfileCategory,
     Title: Title
@@ -72,6 +76,8 @@ export interface IProfile {
     CountryISO3: CountryISO3,
     Telephone: Telephone,
     Email: Email
+    EMail: Email
+    MembershipType: any
     Fax: Fax
     Gender: Gender,
     DeleteCode: DeleteCode,

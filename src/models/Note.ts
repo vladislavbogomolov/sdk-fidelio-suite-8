@@ -51,7 +51,7 @@ export class Note {
         return this
     }
 
-    where(name: "GuestNum" | "ProfileID" | "PostingID", value: number) {
+    where(name: any, value: number) {
         this.conditions.addAnd(name, value, "eq")
         return this
     }

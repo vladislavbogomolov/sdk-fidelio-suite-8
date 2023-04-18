@@ -4,7 +4,7 @@ import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import {IProfile} from "../interfaces/profile/IProfileFields";
-import {IProfileUpdateFields} from "../interfaces/profile";
+import {IProfileConditionFields, IProfileUpdateFields} from "../interfaces/profile";
 import {profileFields} from "../requests/objects/profile/ProfileQueryFields";
 import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditionFields";
 import {ProfileCondition} from "../requests/objects/profile/ProfileCondition";
@@ -15,7 +15,7 @@ export class Profile extends FidelioRequest{
     #attributes: IProfile = null; // Data Fidelio
     readonly #original: IProfile = null; // Data Fidelio
     #conditions: PackageCondition = new PackageCondition()
-    readonly #privateKey = 'ProfileID'
+    readonly #privateKey: IProfileConditionKeyFields = 'ProfileID'
 
     constructor(profile: IProfile = null) {
         super();
@@ -73,7 +73,7 @@ export class Profile extends FidelioRequest{
      */
 
     async get(): Promise<Profile[]> {
-        const res = await new FidelioRequest().addProfileQueryRequest(this.#conditions).send();
+        const res = await this.addProfileQueryRequest(this.#conditions).send();
         const classes: Profile[] = []
 
         res.data.forEach((profile: any) => {
@@ -133,7 +133,7 @@ export class Profile extends FidelioRequest{
      * @param operation
      */
 
-    where<T extends keyof IProfileConditionKeyFields, K extends IProfileConditionKeyFields>(name: string, value: K[T], operation: IOperation = 'eq'): Profile {
+    where<T extends keyof IProfileConditionFields, K extends IProfileConditionFields>(name: T, value: K[T], operation: IOperation = 'eq'): Profile {
         this.#conditions.addAnd(name, value, operation)
         return this
     }
