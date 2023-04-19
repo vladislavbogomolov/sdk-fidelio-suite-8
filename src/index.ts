@@ -1,8 +1,8 @@
 import {Fidelio} from "./Fidelio";
 
 export {Fidelio}
-
-/*const connectionPA = new Fidelio({
+/*
+const connectionPA = new Fidelio({
     URL: "https://s8bal.hcd.cloud/PATEST/fidelioIISWrapper.dll/FidelioXMLInterface.DataHandler?ic=PATEST",
     CODE: "PATEST",
     FIDELIO_VERSION: "1.1.0",
@@ -18,9 +18,10 @@ export {Fidelio}
 async function test() {
 
 
-    const x = await connectionPA.RateList.where('RateWebEnabled', 1).get();
+    const x1 = await connectionPA.ChildrenCategories.get();
+    const x2 = await connectionPA.RateList.where('RateWebEnabled', 1).get();
 
 
-    console.log(x)
+    console.log(x1, x2)
 }
 test()*/

@@ -6,6 +6,11 @@ export class ChildrenCategories extends FidelioRequest{
 
     async get(fields: IFieldsRequestChildrenCategories[] = null) {
         const response = await this.addChildrenCategoriesRequest(null, fields = null).send()
+        response.data.map( (row: IFieldsRequestChildrenCategories) => {
+            row.ChildrenCategoriesFromAge = Number(row.ChildrenCategoriesFromAge)
+            row.ChildrenCategoriesToAge = Number(row.ChildrenCategoriesToAge)
+            return row;
+        })
         this.dataOrigin = response.data
         return this;
     }
