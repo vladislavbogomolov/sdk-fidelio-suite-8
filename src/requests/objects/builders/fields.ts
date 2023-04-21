@@ -15,11 +15,9 @@ export const Fields = (fields: any) => {
         })
 
     } else {
-        for (const key in fields) {
-            // if (fields[key] !== undefined) {
-                const field = Field(key, fields[key]);
-                Array.isArray(field) ? object = object.concat(...field) : object.push(field);
-            // }
+        for (const key of Object.keys(fields)) {
+            const field = Field(key, fields[key]);
+            Array.isArray(field) ? object = object.concat(...field) : object.push(field);
         }
     }
 
