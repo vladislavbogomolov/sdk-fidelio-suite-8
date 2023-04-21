@@ -5,8 +5,12 @@ export class AvailabilityForWeb extends FidelioRequest{
     private fields: IFieldsRequestAvailabilityForWeb;
     private dataOrigin: any
 
-    async get(fields: IFieldsRequestAvailabilityForWeb = null) {
-        const response = await this.addAvailabilityRequest(fields).send()
+    get() {
+        return this.send();
+    }
+
+    where(fields: IFieldsRequestAvailabilityForWeb = null) {
+        const response = this.addAvailabilityRequest(fields)
         this.dataOrigin = response.data
         return this;
     }
