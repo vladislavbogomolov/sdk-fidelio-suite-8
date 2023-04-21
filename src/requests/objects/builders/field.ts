@@ -81,8 +81,7 @@ context.AccompanyingGuest = (AccompanyingGuest: AccompanyingGuests[]): any => {
 }
 
 const FieldSimple = (field: string, value: string | number): IFieldSimple => {
-
-    return value ? {
+    return value !== undefined ? {
         $: {
             name: field
         },

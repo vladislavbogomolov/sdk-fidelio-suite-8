@@ -17,6 +17,8 @@ export interface IFieldsRequestAvailabilityForWeb {
     PricePerPerson?: string
     HotelSegmentCode?: string
     WebSalesCategory?: string
+    RateInfo?: string
+    RateWebInfo?: string
 }
 
 
@@ -39,4 +41,6 @@ export interface IFieldsResponseAvailabilityForWeb {
     BaseCurrencyPrice: string,
     Availability: string,
     RateMarket: string,
+    RateInfo: string,
+    RateWebInfo: string,
 }

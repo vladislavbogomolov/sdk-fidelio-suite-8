@@ -1,11 +1,11 @@
-import {IFieldsRequestAvailabilityForWeb} from "../../../interfaces/availability";
 import {Field} from "./field";
 import {IFieldSimple} from "../../../interfaces/Request";
-import {IReservationFields} from "../../../interfaces/reservation/IReservationFields";
 
 export const Fields = (fields: any) => {
 
     let object: IFieldSimple[] = [];
+
+
 
 
     if (Array.isArray(fields)) {
@@ -16,10 +16,10 @@ export const Fields = (fields: any) => {
 
     } else {
         for (const key in fields) {
-            if (fields[key]) {
+            // if (fields[key] !== undefined) {
                 const field = Field(key, fields[key]);
                 Array.isArray(field) ? object = object.concat(...field) : object.push(field);
-            }
+            // }
         }
     }
 
