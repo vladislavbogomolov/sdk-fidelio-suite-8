@@ -193,11 +193,6 @@ export class FidelioRequest {
             body.fidelio.request[0][key].push(request[key])
         })
 
-
-        console.log('------------')
-
-        console.log(JSON.stringify(body, null, 2))
-
         return builder.buildObject(body);
     }
 
