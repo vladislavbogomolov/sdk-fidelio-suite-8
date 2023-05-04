@@ -8,7 +8,7 @@ import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 
-export class Reservation extends FidelioRequest{
+export class Reservation extends FidelioRequest {
 
     #attributes: IReservation = null; // Data Fidelio
     readonly #original: IReservation = null; // Data Fidelio

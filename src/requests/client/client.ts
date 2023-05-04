@@ -23,7 +23,6 @@ axiosApiInstance.interceptors.request.use(
         zip.file('MSG', req.data);
         req.data = await zip.generateAsync({type: "base64"})
         return req;
-
     },
     (error) => {
         return Promise.reject(error);
@@ -41,7 +40,12 @@ axiosApiInstance.interceptors.response.use(
             res.data = await r.file('MSG').async('string');
             fidelioDebug(await r.file('MSG').async('string'))
             fidelioDebug('parsing...')
-            res.data = await parseResponse(res)
+            try {
+                res.data = await parseResponse(res)
+            }catch (e) {
+                return Promise.resolve(e)
+            }
+
             fidelioDebug('parsed')
 
         }

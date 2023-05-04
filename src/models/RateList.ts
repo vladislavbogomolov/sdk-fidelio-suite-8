@@ -14,10 +14,17 @@ export class RateList extends FidelioRequest{
         this.dataOrigin = response.data
         return this;
     }*/
+    constructor() {
+        super();
+    }
 
     async get() {
-        const response = await this.addRateListRequest(this.#conditions).send();
-        this.dataOrigin = response.data
+        try {
+            const response = await this.addRateListRequest(this.#conditions).send();
+            this.dataOrigin = response.data
+        } catch (e) {
+            console.error(e)
+        }
         return this;
     }
     /**

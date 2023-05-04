@@ -15,7 +15,7 @@ import {IMethod, ReqType} from "../interfaces/types";
 import {deleteReservation} from "./objects/commands/commands";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import xml2js from "xml2js";
-import {Connections, IConnection} from "../config/connections";
+import {IConnection} from "../config/connections";
 import {ChildrenCategoriesFields} from "./objects/ChildrenCategories";
 import {IFieldsRequestChildrenCategories} from "../interfaces/ChildrenCategories";
 import {IRateListFields} from "../interfaces/RateList";
@@ -52,7 +52,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addChildrenCategoriesRequest = (conditions: any, fields: IFieldsRequestChildrenCategories[] = null ) => {
+    addChildrenCategoriesRequest = (conditions: any, fields: IFieldsRequestChildrenCategories[] = null) => {
         return this.addQuery(conditions?.conditions ?? null, fields ?? ChildrenCategoriesFields, "ChildrenCategories")
     }
 
@@ -63,7 +63,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addRateListRequest = (conditions: PackageCondition = null, fields: IRateListFields[] = null ) => {
+    addRateListRequest = (conditions: PackageCondition = null, fields: IRateListFields[] = null) => {
         return this.addQuery(conditions?.conditions ?? null, fields ?? RateList, "RateList")
     }
 
@@ -170,7 +170,6 @@ export class FidelioRequest {
 
     getBody = () => {
 
-
         const body: any = {
             fidelio: {
                 $: {
@@ -187,12 +186,17 @@ export class FidelioRequest {
             }
         }
 
+
         this._requestObject.forEach((request: any) => {
             const key = Object.keys(request)[0];
             if (!body.fidelio.request[0][key]) body.fidelio.request[0][key] = [];
             body.fidelio.request[0][key].push(request[key])
         })
 
+
+        console.log('------------')
+
+        console.log(JSON.stringify(body, null, 2))
 
         return builder.buildObject(body);
     }
@@ -203,7 +207,7 @@ export class FidelioRequest {
         try {
             return axiosApiInstance.post(this.connection.URL, this.getBody());
         } catch (e) {
-            console.error(`Connection ${this.connection} not exists`)
+            return Promise.reject(e)
         }
 
     };

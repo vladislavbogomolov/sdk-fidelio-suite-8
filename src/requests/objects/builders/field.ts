@@ -85,7 +85,7 @@ const FieldSimple = (field: string, value: string | number): IFieldSimple => {
         $: {
             name: field
         },
-        _: value
+        _: value ?? ''
     } : {
         $: {
             name: field

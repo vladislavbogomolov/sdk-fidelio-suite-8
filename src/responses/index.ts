@@ -139,7 +139,10 @@ export const parseResponse = async (response: AxiosResponse) => {
     return xml2js.parseStringPromise(response.data).then((result: IFidelioResponse) => {
         // Check errors
         if (result.fidelio.response[0].$.Status !== 'OK') {
-            return Promise.reject(result.fidelio.response[0].$)
+            return Promise.reject({
+                status: result.fidelio.response[0].$.Status,
+                message: result.fidelio.response[0].$.Message
+            })
         }
 
         if (result.fidelio.response[0].updateResponse) {
@@ -190,8 +193,8 @@ export const parseResponse = async (response: AxiosResponse) => {
         return responses[1] ? responses : responses[0]
     }).catch((err) => {
         // Failed
-        console.log('err')
-        console.log(err)
+        // console.log('err')
+        // console.log(err)
         return Promise.reject(err)
     });
 
