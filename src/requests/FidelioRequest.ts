@@ -173,13 +173,13 @@ export class FidelioRequest {
         const body: any = {
             fidelio: {
                 $: {
-                    Version: process.env.FIDELIO_VERSION,
+                    Version: '1.1.0',
                 },
                 request: [{
                     $: {
-                        UserName: process.env.FIDELIO_USERNAME,
-                        Password: process.env.FIDELIO_PASSWORD,
-                        Vendor: process.env.FIDELIO_VENDOR
+                        UserName: this.connection.FIDELIO_USERNAME,
+                        Password: this.connection.FIDELIO_PASSWORD,
+                        Vendor: this.connection.FIDELIO_VENDOR
                     },
                 }]
 

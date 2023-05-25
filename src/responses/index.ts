@@ -190,7 +190,7 @@ export const parseResponse = async (response: AxiosResponse) => {
     const responses: any = [];
 
     return xml2js.parseStringPromise(response.data).then((result: IFidelioResponse) => {
-        // Check errors
+
         if (result.fidelio.response[0].$.Status !== 'OK') {
             throw {
                 status: result.fidelio.response[0].$.Status,
@@ -202,11 +202,8 @@ export const parseResponse = async (response: AxiosResponse) => {
             responses.push({
                 result: "ok"
             })
-            return
+            return;
         }
-
-        // console.log(result.fidelio.response[0])
-        // if (!result.fidelio.response[0].queryResponse[0].rows[0].row) return [];
 
         let requestsResponses: any = [];
         types.forEach((type: responseType) => {
@@ -215,41 +212,6 @@ export const parseResponse = async (response: AxiosResponse) => {
             }
         })
 
-
-        /*result.fidelio.response[0].queryResponse.forEach((rows: QueryResponse, requestIndex: number) => {
-            // Single request
-            // rows.$.Name // Profile | Reservation..
-
-            const requestsObject: any[] = [];
-
-            rows.rows[0].row.forEach((row: any) => {
-                let object: any = {};
-
-                row.fields[0].field.forEach((field: any) => {
-
-                    const fieldName = field.$.name;
-
-                    if (context[fieldName]) {
-                        if (!object[fieldName]) object[fieldName] = [];
-                        object = context[fieldName].apply(context, [field, object]);
-                    } else if (addressesFields.includes(fieldName)) {
-                        object = normalizeAddresses(object, field)
-                    } else if (fieldsNumberType.includes(fieldName)) {
-                        object[fieldName] = Number(field._)
-                    } else if (fieldsDateType.includes(fieldName)) {
-                        object[fieldName] = fidelioToDate(field._)
-                    } else if (fieldsCommunication.includes(fieldName)) {
-                        object = fidelioCommunications(field, object)
-                    } else {
-                        object[fieldName] = field._ ?? ''
-                    }
-                })
-
-                requestsObject.push(object)
-            })
-
-            responses.push(requestsObject);
-        })*/
         return requestsResponses;
     }).catch((err) => {
         // Failed
