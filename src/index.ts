@@ -13,6 +13,7 @@ const f = new Fidelio(Connections[0])
 // f.Reservation.delete(236781).then((res) => console.log(res.data))
 
 
+/*
 f.Reservation.create({
     RoomType: "PZSTA",
     GuestArrival: "2023-06-01",
@@ -30,5 +31,6 @@ f.Reservation.create({
 }).catch((error) => {
     console.error('error', error);
 })
+*/
 
 export {Fidelio}
