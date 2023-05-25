@@ -18,6 +18,7 @@ interface IResponse {
     },
     queryResponse?: QueryResponse[];
     updateResponse?: QueryResponse[];
+    insertResponse?: QueryResponse[];
 }
 
 export interface QueryResponse {

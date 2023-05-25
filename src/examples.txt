@@ -1,6 +1,3 @@
-import {Fidelio} from "./Fidelio";
-import {Connections} from "./config/connections";
-import e from "express";
 const f = new Fidelio(Connections[0])
 
 /*f.AvailabilityForWeb.where({
@@ -25,10 +22,9 @@ f.Reservation.create({
     SourceCode: "DIR",
     ChannelCode: "WEB",
     CrsResNumber: '0',
+
 }).then((result) => {
     result.delete().then(console.log)
 }).catch((error) => {
-    console.error('error', error);
+    console.log('error', error);
 })
-
-export {Fidelio}

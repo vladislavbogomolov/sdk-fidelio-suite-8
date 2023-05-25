@@ -18,7 +18,6 @@ export class Fidelio {
         this.AvailabilityForWeb.setConnection(this.connection);
         this.Profile.setConnection(this.connection);
         this.Reservation.setConnection(this.connection);
-        this.Reservation.setConnection(this.connection);
         this.ChildrenCategories.setConnection(this.connection);
         this.RateList.setConnection(this.connection);
     }

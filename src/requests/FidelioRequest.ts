@@ -128,8 +128,8 @@ export class FidelioRequest {
      * Reservation - Insert
      * @param fields
      */
-    addReservationInsertRequest = (fields: IReservationInsert[]) => {
-        return this.addQuery([], fields, "Reservation", "insert")
+    addReservationInsertRequest = (fields: IReservationInsert) => {
+        return this.addQuery(null, fields, "Reservation", "insert")
     }
 
     /**

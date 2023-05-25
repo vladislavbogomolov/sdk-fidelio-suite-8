@@ -1,6 +1,11 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
 import {ReservationCondition} from "../requests/objects/reservation/ReservationCondition";
-import {IReservation, IReservationUpdate, IReservationUpdateFields} from "../interfaces/reservation/IReservationFields";
+import {
+    IReservation,
+    IReservationInsert,
+    IReservationUpdate,
+    IReservationUpdateFields
+} from "../interfaces/reservation/IReservationFields";
 import {reservationUpdateFields} from "../requests/objects/reservation/ReservationQueryFields";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservationConditionFields";
@@ -18,8 +23,8 @@ export class Reservation extends FidelioRequest {
     constructor(reservation: IReservation = null) {
         super();
         if (reservation) {
-            this.#original = this.#hydrate(reservation);
-            this.#attributes = this.#hydrate(reservation);
+            this.#original = reservation;
+            this.#attributes = reservation;
         }
     }
 
@@ -56,12 +61,10 @@ export class Reservation extends FidelioRequest {
      */
 
     async find(GuestNum: number): Promise<Reservation> {
-
+        this._requestObject = [];
         const reservations = await this.addReservationQueryRequest(new ReservationCondition().add("GuestNum", GuestNum)).send();
-        const reservation = reservations.data[0]
-        const newClass = new Reservation(reservation)
-        newClass.where(this.#privateKey, reservation.GuestNum)
-
+        const newClass = new Reservation(reservations.data[0]).setConnection(this.connection)
+        newClass.where(this.#privateKey, reservations.data[0].GuestNum)
         return newClass
     }
 
@@ -83,15 +86,6 @@ export class Reservation extends FidelioRequest {
         return classes
     }
 
-    /**
-     * Delete current object or by GuestNum
-     * @param GuestNum
-     * @param options
-     */
-
-    async delete(GuestNum: number = null, options: IDeleteReservationOption = null) {
-        return this.addReservationDelete(GuestNum ?? this.#original.GuestNum, options = null).send();
-    }
 
 
     /**
@@ -110,16 +104,31 @@ export class Reservation extends FidelioRequest {
                 }
             }
 
-            // console.log('newData')
-            // console.log(newData)
-
             // Nothing to update
             if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum)
-            const responseUpdate = await fidelioRequest.addReservationUpdateRequest(new ReservationCondition().add("GuestNum", this.#attributes.GuestNum), newData).send()
+            const responseUpdate = await this.addReservationUpdateRequest(new ReservationCondition().add("GuestNum", this.#attributes.GuestNum), newData).send()
             return this.find(this.#attributes.GuestNum)
         } else {
-            // create
+            const responseUpdate = await this.addReservationInsertRequest(this.#attributes).send()
+            return this.find(responseUpdate.data.GuestNum)
         }
+    }
+
+    async create(reservation: IReservationInsert) {
+        let responseUpdate;
+        responseUpdate = await this.addReservationInsertRequest(reservation).send();
+        return this.find(responseUpdate.data.GuestNum)
+    }
+
+    /**
+     * Delete current object or by GuestNum
+     * @param GuestNum
+     * @param options
+     */
+
+    async delete(GuestNum: number = null, options: IDeleteReservationOption = null) {
+        const response = await this.addReservationDelete(GuestNum ?? this.#original.GuestNum, options = null).send();
+        return response.data[0];
     }
 
 
@@ -138,7 +147,7 @@ export class Reservation extends FidelioRequest {
 
     #hydrate(reservation: IReservation): IReservation {
         reservation = JSON.parse(JSON.stringify(reservation));
-        if (reservation.Notes) {
+        /*if (reservation.Notes) {
             const notes = JSON.parse(JSON.stringify(reservation.Notes))
             reservation.Notes = [];
 
@@ -150,7 +159,7 @@ export class Reservation extends FidelioRequest {
             })
         } else {
             reservation.Notes = [];
-        }
+        }*/
 
         return reservation
     }
@@ -160,7 +169,7 @@ export class Reservation extends FidelioRequest {
      * @param note
      */
 
-    addNote(note: INote) {
+    /*addNote(note: INote) {
         note.subject = "Reservation";
         const noteClass: Note = new Note(note);
         if (this.#original.GuestNum) {
@@ -169,7 +178,7 @@ export class Reservation extends FidelioRequest {
         this.#attributes.Notes.push(noteClass)
 
         return this
-    }
+    }*/
 
 
     /**
@@ -177,6 +186,7 @@ export class Reservation extends FidelioRequest {
      * @param noteID
      */
 
+    /*
     deleteNote(noteID: number | number[] | 'ALL'): Reservation {
 
         if (Number.isFinite(noteID)) {
@@ -189,8 +199,7 @@ export class Reservation extends FidelioRequest {
 
         return this
     }
-
-
+    */
     /**
      * Add profile to reservation
      * @param ProfileID

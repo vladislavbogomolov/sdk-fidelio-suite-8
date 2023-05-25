@@ -43,7 +43,7 @@ axiosApiInstance.interceptors.response.use(
             try {
                 res.data = await parseResponse(res)
             }catch (e) {
-                return Promise.resolve(e)
+                return Promise.reject(e)
             }
 
             fidelioDebug('parsed')
