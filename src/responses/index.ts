@@ -13,7 +13,7 @@ const fieldsNumberType = [
     "NoMailing", "NoEMailing", "BedReservation",
     "Price", "ForeignTotalStay", "NetRoomRevenue", "BaseCurrencyPrice", "PackagePrice", "Availability",
     "PackagePriceType", "PackageIncluded", "PackageSinglePerRes", "PackageShowInRes", "PackagePercentage",
-    "PackageDisplOrder", "DepartmentCode"
+    "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL", "OptionDate"
 ]
 
 const fieldsDateType = [
