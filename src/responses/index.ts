@@ -144,7 +144,7 @@ const handlerResponseFidelio: any = {
             const requestsObject: any[] = [];
 
             if (typeof rows.rows[0] === "string" && rows.rows[0] === '') {
-                throw new NotFoundError('');
+                throw new NotFoundError("The requested resource could not be found.");
             }
 
             rows.rows[0].row.forEach((row: any) => {
