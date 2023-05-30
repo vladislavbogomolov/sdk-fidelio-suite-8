@@ -3,6 +3,7 @@ import xml2js from 'xml2js'
 import {IFidelioResponse, QueryResponse, Row} from "../interfaces/response";
 import dayjs from 'dayjs';
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import {NotFoundError} from "../errors";
 
 dayjs.extend(customParseFormat)
 
@@ -141,6 +142,10 @@ const handlerResponseFidelio: any = {
         queryResponse.forEach((rows) => {
 
             const requestsObject: any[] = [];
+
+            if (typeof rows.rows[0] === "string" && rows.rows[0] === '') {
+                throw new NotFoundError('');
+            }
 
             rows.rows[0].row.forEach((row: any) => {
                 let object: any = {};
