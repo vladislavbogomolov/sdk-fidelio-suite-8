@@ -248,7 +248,7 @@ export interface IReservationUpdate {
     AccompanyingGuest?: AccompanyingGuest,
     ReservationPreference?: ReservationPreference,
     Policy?: Policy,
-    Notes: any
+    Notes?: any
 }
 
 

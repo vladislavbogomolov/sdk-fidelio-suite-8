@@ -15,7 +15,7 @@ import {IDeleteReservationOption} from "../interfaces/commamds";
 
 export class Reservation extends FidelioRequest {
 
-    #attributes: IReservation = null; // Data Fidelio
+    #attributes: IReservation = {} as IReservation; // Data Fidelio
     readonly #original: IReservation = null; // Data Fidelio
     #conditions: PackageCondition = new PackageCondition()
     readonly #privateKey = 'GuestNum'
@@ -52,6 +52,11 @@ export class Reservation extends FidelioRequest {
 
     set attributes(attributes: IReservation) {
         this.#attributes = Object.assign({}, attributes);
+    }
+
+    set(attributes: IReservationUpdate) {
+        this.#attributes = Object.assign(this.#attributes, attributes);
+        return this;
     }
 
 
@@ -93,12 +98,16 @@ export class Reservation extends FidelioRequest {
      */
 
     async save(): Promise<Reservation> {
+        console.log(this.#conditions)
         const fidelioRequest = new FidelioRequest();
-        if (this.#attributes.GuestNum) {
+        if (this.#attributes.GuestNum || this.#conditions.conditions.length) {
+
+            const conditions = this.#attributes.GuestNum ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum) : this.#conditions;
+
             const newData: IReservationUpdate = {} as IReservationUpdate;
             for (const key in this.#attributes) {
                 // @ts-ignore
-                if (reservationUpdateFields.includes(key) && JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key])) {
+                if (reservationUpdateFields.includes(key) && (!this.#original || !this.#original[key] || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
                     // @ts-ignore
                     newData[key] = this.#attributes[key]
                 }
@@ -106,7 +115,7 @@ export class Reservation extends FidelioRequest {
 
             // Nothing to update
             if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum)
-            const responseUpdate = await this.addReservationUpdateRequest(new ReservationCondition().add("GuestNum", this.#attributes.GuestNum), newData).send()
+            const responseUpdate = await this.addReservationUpdateRequest(conditions, newData).send()
             return this.find(this.#attributes.GuestNum)
         } else {
             const responseUpdate = await this.addReservationInsertRequest(this.#attributes).send()

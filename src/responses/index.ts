@@ -199,7 +199,7 @@ export const parseResponse = async (response: AxiosResponse) => {
         if (result.fidelio.response[0].$.Status !== 'OK') {
             throw {
                 status: result.fidelio.response[0].$.Status,
-                message: result.fidelio.response[0].$.Message
+                message: result.fidelio.response[0].$.Message.replace(/(\r\n|\n|\r)/gm, " ").trim(),
             }
         }
 
