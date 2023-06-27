@@ -98,8 +98,7 @@ export class Reservation extends FidelioRequest {
      */
 
     async save(): Promise<Reservation> {
-        console.log(this.#conditions)
-        const fidelioRequest = new FidelioRequest();
+
         if (this.#attributes.GuestNum || this.#conditions.conditions.length) {
 
             const conditions = this.#attributes.GuestNum ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum) : this.#conditions;

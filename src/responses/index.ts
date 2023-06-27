@@ -17,14 +17,18 @@ const fieldsNumberType = [
     "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL", "OptionDate"
 ]
 
+const fieldsDateTimeType = [
+    "CheckinDateTime", "CheckoutDateTime",
+    "CentralSyncTime", "LastUpdateTime", "CreationTime"
+]
+
 const fieldsDateType = [
-    "CheckinDateTime", "CheckoutDateTime", "Date", "PackageStart", "PackageEnd", "Birthday",
-    "CentralSyncTime", "LastUpdateTime", "CreationTime", "GuestArrival", "GuestDeparture"
+    "Date", "PackageStart", "PackageEnd", "Birthday", "GuestArrival", "GuestDeparture"
 ]
 
 const fieldsCommunication = ["Email", "Fax", "Telephone", "Communication"]
 
-const fidelioToDate = (date: string): string => {
+const fidelioToDateTime = (date: string): string => {
 
     if (!date) return null;
 
@@ -32,6 +36,17 @@ const fidelioToDate = (date: string): string => {
         return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY hh:mm:ss").toJSON()
     } else {
         return dayjs(date, "DD.MM.YYYY").toJSON()
+    }
+}
+
+const fidelioToDate = (date: string): string => {
+
+    if (!date) return null;
+
+    if (date.indexOf(".000 UTC-60") > 0) {
+        return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY hh:mm:ss").format('YYYY-MM-DD')
+    } else {
+        return dayjs(date, "DD.MM.YYYY").format('YYYY-MM-DD')
     }
 }
 
@@ -163,6 +178,8 @@ const handlerResponseFidelio: any = {
                         object[fieldName] = Number(field._)
                     } else if (fieldsDateType.includes(fieldName)) {
                         object[fieldName] = fidelioToDate(field._)
+                    } else if (fieldsDateTimeType.includes(fieldName)) {
+                        object[fieldName] = fidelioToDateTime(field._)
                     } else if (fieldsCommunication.includes(fieldName)) {
                         object = fidelioCommunications(field, object)
                     } else {

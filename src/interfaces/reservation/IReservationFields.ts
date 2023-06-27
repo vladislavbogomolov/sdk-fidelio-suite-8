@@ -77,6 +77,8 @@ import {
     CardholderName,
     CreditCardNo,
     RateRoomType,
+    LastUpdateTime,
+    CreationTime,
 } from "../types"
 import {Note} from "../../models/Note";
 
@@ -148,7 +150,8 @@ export interface IReservation {
     Policy: Policy,
     BedReservation: BedReservation,
     Hints: Hints,
-
+    LastUpdateTime: LastUpdateTime,
+    CreationTime: CreationTime,
 }
 
 export type IReservationFields = keyof IReservation
@@ -201,6 +204,8 @@ export interface IReservationInsert {
     AccompanyingGuest?: AccompanyingGuest,
     ReservationPreference?: ReservationPreference,
     Policy?: Policy,
+    LastUpdateTime: LastUpdateTime,
+    CreationTime: CreationTime,
 }
 
 export type IReservationInsertFields = keyof IReservationInsert;

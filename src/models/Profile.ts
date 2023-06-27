@@ -59,7 +59,7 @@ export class Profile extends FidelioRequest{
 
     async find(ProfileID: number): Promise<Profile> {
 
-        const profiles = await new FidelioRequest().addProfileQueryRequest(new ProfileCondition().add(this.#privateKey, ProfileID)).send();
+        const profiles = await this.addProfileQueryRequest(new ProfileCondition().add(this.#privateKey, ProfileID)).send();
         const profile = profiles.data[0]
         const newClass = new Profile(profile)
         newClass.where(this.#privateKey, profile[this.#privateKey])
