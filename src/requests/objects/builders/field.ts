@@ -4,6 +4,7 @@ import {IFieldSimple} from "../../../interfaces/Request";
 import {Note} from "../../../models/Note";
 import {AccompanyingGuests} from "../../../interfaces/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import {IPackageCode} from "../../../interfaces/package";
 
 dayjs.extend(customParseFormat)
 
@@ -56,7 +57,7 @@ context.CustomField = (customFields: any): any => {
 context.Notes = (Notes: Note[]): any => {
     const result: IFieldSimple[] = [];
 
-    Notes.forEach( note => {
+    Notes.forEach(note => {
         result.push({
             $: {...note.attributes, name: "Notes"},
             _: note.attributes.value
@@ -67,13 +68,27 @@ context.Notes = (Notes: Note[]): any => {
 }
 
 context.AccompanyingGuest = (AccompanyingGuest: AccompanyingGuests[]): any => {
+
+    const result: IFieldSimple[] = [];
+    AccompanyingGuest.filter(guest => (guest.action && guest.action === "to_create") || guest.addData === "DELETE")
+        .forEach(guest => {
+            result.push({
+                $: {...guest, name: "AccompanyingGuest"},
+                _: guest.value
+            })
+        })
+
+    return result
+}
+
+context.PackageCode = (PackageCode: IPackageCode[]): any => {
+
     const result: IFieldSimple[] = [];
 
-    AccompanyingGuest.filter(guest => (guest.action && guest.action === "to_create") || guest.addData === "DELETE")
-        .forEach( guest => {
+    PackageCode.forEach(packageCode => {
         result.push({
-            $: {...guest, name: "AccompanyingGuest"},
-            _: guest.value
+            $: {...packageCode, name: "PackageCode"},
+            _: packageCode.attr
         })
     })
 

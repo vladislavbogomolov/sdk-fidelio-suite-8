@@ -164,6 +164,6 @@ export type Guest3rdPartyType = any
 
 export type IOperation = "eq" | "neq" | "like" | "le" | "lt" | "ge" | "gt"
 export type IOperators = "AND" | "OR" | "NOT"
-export type ReqType = "Profile" | "Reservation" | "Package" | "Postings" | "FunctionSpaceAvailability" | "BonusPoint" | "BillingInstruction" | "ConferenceBooking" | "CustomQuery" | "ChildrenCategories" | "RateList"
+export type ReqType = "Profile" | "Reservation" | "ProfileAndReservation" | "Package" | "Postings" | "FunctionSpaceAvailability" | "BonusPoint" | "BillingInstruction" | "ConferenceBooking" | "CustomQuery" | "ChildrenCategories" | "RateList"
 export type IMethod = "update" | "query" | "insert"
 export type IDataType = "String" | "Date" | "Float"

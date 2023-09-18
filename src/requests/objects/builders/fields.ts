@@ -5,9 +5,6 @@ export const Fields = (fields: any) => {
 
     let object: IFieldSimple[] = [];
 
-
-
-
     if (Array.isArray(fields)) {
 
         fields.forEach((field) => {

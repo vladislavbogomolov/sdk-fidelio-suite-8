@@ -11,8 +11,8 @@ export type IConnection = {
 }
 export const Connections: IConnection[] = [
     {
-        URL: "https://s8bal.hcd.cloud/PATEST/fidelioIISWrapper.dll/FidelioXMLInterface.DataHandler?ic=PATEST",
-        CODE: "PATEST",
+        URL: "",
+        CODE: "",
         FIDELIO_VERSION: "1.1.0",
         FIDELIO_VENDOR: "sdk-fidelio-suite",
         FIDELIO_USERNAME: "",

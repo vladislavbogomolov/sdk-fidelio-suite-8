@@ -26,7 +26,7 @@ export interface IPackage {
 export type IPackageFields = keyof IPackage
 
 
-export interface IPackageCondition{
+export interface IPackageCondition {
     StartDate: string,
     EndDate: string,
     PackageCode: string,
@@ -38,3 +38,11 @@ export interface IPackageCondition{
 }
 
 export type IPackageConditionFields = keyof IPackageCondition
+
+export interface IPackageCode {
+    attr: string;
+    Price?: number;
+    Included?: 0 | 1;
+    addData?: "DELETE",
+    Date?: string
+}

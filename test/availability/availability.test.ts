@@ -1,5 +1,8 @@
 import {describe, expect, test} from '@jest/globals';
 import {AvailabilityForWeb} from "../../src/models/AvailabilityForWeb";
+import {IFieldsRequestAvailabilityForWeb} from "../../src/interfaces/availability";
+import {Fidelio} from "../../src";
+import {Connections} from "../../src/config/connections";
 
 
 describe('Get availability', () => {
@@ -7,11 +10,19 @@ describe('Get availability', () => {
     jest.setTimeout(20000);
     test('Get availability', async () => {
 
-        const result = await new AvailabilityForWeb({
-            GuestArrival: new Date('2023-06-01'),
-            GuestDeparture: new Date('2023-06-05'),
-            NoOfAdults: 1
-        }).get()
+        const reqFields: IFieldsRequestAvailabilityForWeb = {
+            GuestArrival: new Date('2024-06-01'),
+            GuestDeparture: new Date('2024-06-03'),
+            NoOfAdults: 2,
+            MultipleRates: 1,
+            AvailabilityLimit: 'BookingOnline',
+            WebOnly: 1
+        }
+
+        const connection = new Fidelio(Connections[0]);
+        const result = await connection.AvailabilityForWeb.where(reqFields).get()
+
+        console.log(result)
 
         expect(result.data.length).toBeGreaterThan(0);
 

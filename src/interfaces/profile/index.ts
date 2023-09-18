@@ -1,6 +1,5 @@
 import {IProfileConditionFields} from "./IProfileConditionFields";
-import {IProfileInsertFields} from "./IProfileInsertFields";
 import {IProfileUpdateFields} from "./IProfileUpdateFields";
-import {IProfileFields} from "./IProfileFields";
+import {IProfileFields, IProfileInsertFields, IProfileAndReservation} from "./IProfileFields";
 
-export {IProfileFields, IProfileUpdateFields, IProfileInsertFields, IProfileConditionFields}
+export {IProfileFields, IProfileUpdateFields, IProfileInsertFields, IProfileConditionFields, IProfileAndReservation}

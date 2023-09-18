@@ -12,6 +12,7 @@ import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservati
 import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
+import {IPackageCode, IPackageFields} from "../interfaces/package";
 
 export class Reservation extends FidelioRequest {
 
@@ -23,8 +24,9 @@ export class Reservation extends FidelioRequest {
     constructor(reservation: IReservation = null) {
         super();
         if (reservation) {
-            this.#original = reservation;
-            this.#attributes = reservation;
+            const str = JSON.stringify(reservation);
+            this.#original = JSON.parse(str);
+            this.#attributes = JSON.parse(str);
         }
     }
 
@@ -92,7 +94,6 @@ export class Reservation extends FidelioRequest {
     }
 
 
-
     /**
      * Update or create reservation
      */
@@ -103,21 +104,22 @@ export class Reservation extends FidelioRequest {
 
             const conditions = this.#attributes.GuestNum ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum) : this.#conditions;
 
-            const newData: IReservationUpdate = {} as IReservationUpdate;
+            const newData = {} as IReservationUpdate;
             for (const key in this.#attributes) {
                 // @ts-ignore
-                if (reservationUpdateFields.includes(key) && (!this.#original || !this.#original[key] || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
+                if (reservationUpdateFields.includes(key) && JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key])) {
                     // @ts-ignore
                     newData[key] = this.#attributes[key]
                 }
             }
+
 
             // Nothing to update
             if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum)
             const responseUpdate = await this.addReservationUpdateRequest(conditions, newData).send()
             return this.find(this.#attributes.GuestNum)
         } else {
-            const responseUpdate = await this.addReservationInsertRequest(this.#attributes).send()
+            const responseUpdate = await this.addReservationInsertRequest(this.#attributes as IReservationInsert).send()
             return this.find(responseUpdate.data.GuestNum)
         }
     }
@@ -239,6 +241,36 @@ export class Reservation extends FidelioRequest {
 
         if (toDelete) {
             toDelete.addData = "DELETE"
+        }
+
+        return this
+    }
+
+
+    /**
+     * Add package
+     */
+
+    addPackage(packageCode: IPackageCode) {
+
+        if (!this.#attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)) {
+            this.#attributes.PackageCode.push(packageCode)
+        }
+
+        return this;
+    }
+
+
+    removePackage(packageCode: IPackageCode) {
+
+        if (!this.#attributes.PackageCode) this.#attributes.PackageCode = [];
+
+        packageCode.addData = "DELETE"
+        const attachedPackage = this.#attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)
+        if (!attachedPackage) {
+            this.#attributes.PackageCode.push(packageCode)
+        } else {
+            attachedPackage.addData = "DELETE"
         }
 
         return this

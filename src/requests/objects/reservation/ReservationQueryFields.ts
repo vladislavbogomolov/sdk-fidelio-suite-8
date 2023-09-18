@@ -65,6 +65,7 @@ export const reservationFields: IReservationFields[] = [
     "Hints",
     "LastUpdateTime",
     "CreationTime",
+    "PackageCode",
     // "CustomField",
     // "AccompanyingGuests",
     // "AccompanyingGuest",

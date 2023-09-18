@@ -14,7 +14,7 @@ const fieldsNumberType = [
     "NoMailing", "NoEMailing", "BedReservation",
     "Price", "ForeignTotalStay", "NetRoomRevenue", "BaseCurrencyPrice", "PackagePrice", "Availability",
     "PackagePriceType", "PackageIncluded", "PackageSinglePerRes", "PackageShowInRes", "PackagePercentage",
-    "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL", "OptionDate"
+    "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL"
 ]
 
 const fieldsDateTimeType = [
@@ -72,6 +72,27 @@ context.CustomField = (...input: any[]): any => {
         input[1].CustomField = {};
     }
     input[1].CustomField[input[0].$.attr] = input[0]._ ?? ''
+    return input[1]
+};
+
+context.OptionDate = (...input: any[]): any => {
+
+    // console.log(input[0])
+    // input[1].OptionDate[input[0].$.attr] = input[0]._ ?? ''
+    return input[1]
+};
+
+context.Package = (...input: any[]): any => {
+    // console.log(input[0]);
+    if (!Array.isArray(input[1].PackageCode)) {
+        input[1].PackageCode = [];
+    }
+    // delete(input[0].$.name);
+
+    input[1].PackageCode.push({
+        'Price': Number(input[0]._),
+        ...input[0].$
+    });
     return input[1]
 };
 
@@ -158,53 +179,85 @@ const handlerResponseFidelio: any = {
 
             const requestsObject: any[] = [];
 
+
             if (typeof rows.rows[0] === "string" && rows.rows[0] === '') {
-                throw new NotFoundError("The requested resource could not be found.");
-            }
 
-            rows.rows[0].row.forEach((row: any) => {
-                let object: any = {};
+                if (rows.$.Name.toString() !== 'AvailabilityForWeb') {
+                    throw new NotFoundError("The requested resource could not be found.");
+                }
 
-                row.fields[0].field.forEach((field: any) => {
+                console.log(rows.rows)
 
-                    const fieldName = field.$.name;
 
-                    if (context[fieldName]) {
-                        if (!object[fieldName]) object[fieldName] = [];
-                        object = context[fieldName].apply(context, [field, object]);
-                    } else if (addressesFields.includes(fieldName)) {
-                        object = normalizeAddresses(object, field)
-                    } else if (fieldsNumberType.includes(fieldName)) {
-                        object[fieldName] = Number(field._)
-                    } else if (fieldsDateType.includes(fieldName)) {
-                        object[fieldName] = fidelioToDate(field._)
-                    } else if (fieldsDateTimeType.includes(fieldName)) {
-                        object[fieldName] = fidelioToDateTime(field._)
-                    } else if (fieldsCommunication.includes(fieldName)) {
-                        object = fidelioCommunications(field, object)
-                    } else {
-                        object[fieldName] = field._ ?? ''
-                    }
+            } else {
+                rows.rows[0].row.forEach((row: any) => {
+                    let object: any = {};
+
+                    row.fields[0].field.forEach((field: any) => {
+
+                        const fieldName = field.$.name;
+
+                        if (context[fieldName]) {
+                            if (!object[fieldName]) object[fieldName] = [];
+                            object = context[fieldName].apply(context, [field, object]);
+                        } else if (addressesFields.includes(fieldName)) {
+                            object = normalizeAddresses(object, field)
+                        } else if (fieldsNumberType.includes(fieldName)) {
+                            object[fieldName] = Number(field._)
+                        } else if (fieldsDateType.includes(fieldName)) {
+                            object[fieldName] = fidelioToDate(field._)
+                        } else if (fieldsDateTimeType.includes(fieldName)) {
+                            object[fieldName] = fidelioToDateTime(field._)
+                        } else if (fieldsCommunication.includes(fieldName)) {
+                            object = fidelioCommunications(field, object)
+                        } else {
+                            object[fieldName] = field._ ?? ''
+                        }
+                    })
+
+                    requestsObject.push(object)
                 })
 
-                requestsObject.push(object)
-            })
-
+            }
             responses.push(requestsObject);
+
+
+
         })
 
         return responses[1] ? responses : responses[0]
     },
     insertResponse: (insertResponse: QueryResponse[]) => {
         const responses: any = [];
+        let object: any = {};
         insertResponse[0].rows.forEach((row: any) => {
             Object.keys(row).forEach((key: string) => {
+
+                const fieldName = key;
+
+                if (context[fieldName]) {
+                    if (!object[fieldName]) object[fieldName] = [];
+                    object = context[fieldName].apply(context, [row[key][0], object]);
+                } else if (addressesFields.includes(fieldName)) {
+                    object = normalizeAddresses(object, row[key][0])
+                } else if (fieldsNumberType.includes(fieldName)) {
+                    object[fieldName] = Number(row[key][0])
+                } else if (fieldsDateType.includes(fieldName)) {
+                    object[fieldName] = fidelioToDate(row[key][0])
+                } else if (fieldsDateTimeType.includes(fieldName)) {
+                    object[fieldName] = fidelioToDateTime(row[key][0])
+                } else if (fieldsCommunication.includes(fieldName)) {
+                    object = fidelioCommunications(row[key][0], object)
+                } else {
+                    object[fieldName] = row[key][0] ?? ''
+                }
+
                 responses.push({
                     [key]: row[key][0]
                 });
             })
         })
-        return responses[1] ? responses : responses[0]
+        return object
     }
 }
 export const parseResponse = async (response: AxiosResponse) => {
