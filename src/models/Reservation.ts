@@ -4,13 +4,11 @@ import {
     IReservation,
     IReservationInsert,
     IReservationUpdate,
-    IReservationUpdateFields
 } from "../interfaces/reservation/IReservationFields";
 import {reservationUpdateFields} from "../requests/objects/reservation/ReservationQueryFields";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservationConditionFields";
 import {INote, IOperation} from "../interfaces/types";
-import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import {IPackageCode, IPackageFields} from "../interfaces/package";
 
