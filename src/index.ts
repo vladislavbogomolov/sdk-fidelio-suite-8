@@ -1,2 +1,2 @@
-import {Fidelio} from "./Fidelio";ç
+import {Fidelio} from "./Fidelio";
 export {Fidelio}

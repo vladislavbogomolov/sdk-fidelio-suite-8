@@ -21,6 +21,7 @@ import {IFieldsRequestChildrenCategories} from "../interfaces/ChildrenCategories
 import {IRateListFields} from "../interfaces/RateList";
 import {RateList} from "./objects/RateList";
 import {IProfileAndReservation} from "../interfaces/profile";
+import {IProfile} from "../interfaces/profile/IProfileFields";
 
 
 const builder = new xml2js.Builder();
@@ -112,6 +113,14 @@ export class FidelioRequest {
         return this.addQuery(conditions.conditions, fields, "Profile", "update")
     }
 
+    /**
+     * Profile - Create
+     * @param conditions
+     * @param fields
+     */
+    addProfileCreateRequest = (fields: IProfile) => {
+        return this.addQuery(null, fields, "Profile", "insert")
+    }
 
     // ------------------------------------------  RESERVATION  ---------------------------------------------------------
 
