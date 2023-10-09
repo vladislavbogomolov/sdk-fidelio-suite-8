@@ -1,6 +1,6 @@
 import {IFieldsRequestAvailabilityForWeb} from "../interfaces/availability";
 import {AvailabilityForWeb} from "./objects/availability-for-web";
-import {IProfileFields, IProfileUpdateFields} from "../interfaces/profile";
+import {IProfileFields, IProfileInsertFields, IProfileUpdateFields} from "../interfaces/profile";
 import {Query} from "./objects/builders/query";
 import {axiosApiInstance} from "./client/client";
 import {profileFields} from "./objects/profile/ProfileQueryFields";
@@ -118,7 +118,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addProfileCreateRequest = (fields: IProfile) => {
+    addProfileCreateRequest = (fields: IProfileInsertFields) => {
         return this.addQuery(null, fields, "Profile", "insert")
     }
 

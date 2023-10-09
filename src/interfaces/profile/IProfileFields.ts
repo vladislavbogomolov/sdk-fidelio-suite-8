@@ -175,16 +175,18 @@ export interface IProfileInsertFields {
     IncludeNotCommited?: IncludeNotCommited,
 
 
-    PersonalDocument: PersonalDocument,
-    Membership: Membership,
-    ProfilePreference: ProfilePreference,
-    ProfilePreferences: ProfilePreferences,
-    Notes: Note[],
-    NotesList: any,
-    Addresses: any,
-    Communication: any,
-    Communications: any,
-    CustomField: any,
+    PersonalDocument?: PersonalDocument,
+    Membership?: Membership,
+    ProfilePreference?: ProfilePreference,
+    ProfilePreferences?: ProfilePreferences,
+    Notes?: Note[],
+    NotesList?: any,
+    Addresses?: any,
+    Communication?: any,
+    Communications?: any,
+    CustomField?: any,
+    TryToGlobalize?: 1
+    TryToMerge?: 1
 }
 
 export interface IProfileAndReservation {

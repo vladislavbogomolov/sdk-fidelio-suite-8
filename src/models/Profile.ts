@@ -3,7 +3,7 @@ import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
-import {IProfile} from "../interfaces/profile/IProfileFields";
+import {IProfile, IProfileInsertFields} from "../interfaces/profile/IProfileFields";
 import {IProfileConditionFields, IProfileUpdateFields} from "../interfaces/profile";
 import {profileFields} from "../requests/objects/profile/ProfileQueryFields";
 import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditionFields";
@@ -126,7 +126,7 @@ export class Profile extends FidelioRequest {
     }
   }
 
-  async create(profile: IProfile) {
+  async create(profile: IProfileInsertFields) {
     const responseUpdate = await this.addProfileCreateRequest(profile).send();
     return new Fidelio(this.connection).Profile.find(responseUpdate.data.ProfileID)
   }
