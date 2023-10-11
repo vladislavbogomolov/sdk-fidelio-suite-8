@@ -88,6 +88,7 @@ export type CompanyID = number
 export type TravelAgentID = number
 export type SourceID = number
 export type BookerID = number
+export type BookerGlobalID = number
 export type CompanyName = string
 export type TravelAgentName = string
 export type SourceName = string
