@@ -8,7 +8,7 @@ import {NotFoundError} from "../errors";
 dayjs.extend(customParseFormat)
 
 const fieldsNumberType = [
-    "ProfileID", "ProfileType", "ProfileCategory", "ProfileGlobalID", "ProfileExternalID", "DeleteCode",
+    "ProfileID", "ProfileType", "ProfileCategory", "ProfileGlobalID", "BookerGlobalID", "ProfileExternalID", "DeleteCode",
     "NoOfAdults", "GuestNum", "ReservationState", "NoOfRooms", "NoAvailReason", "ReservationStatus", "CompanyID",
     "TravelAgentID", "SourceID", "GroupID", "BookerID", "PartyID", "RateValue", "ForeignRateValue", "TotalStay",
     "NoMailing", "NoEMailing", "BedReservation",
@@ -273,12 +273,12 @@ export const parseResponse = async (response: AxiosResponse) => {
             }
         }
 
-        if (result.fidelio.response[0].updateResponse) {
+        /*if (result.fidelio.response[0].updateResponse) {
             responses.push({
                 result: "ok"
             })
-            return;
-        }
+            return [];
+        }*/
 
         let requestsResponses: any = [];
         types.forEach((type: responseType) => {

@@ -99,24 +99,28 @@ export class Reservation extends FidelioRequest {
 
   async save(): Promise<Reservation> {
 
+
     if (this.#attributes.GuestNum || this.#conditions.conditions.length) {
 
       const conditions = this.#attributes.GuestNum ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum) : this.#conditions;
 
+      const GuestNum = conditions.conditions[0].value
+
       const newData = {} as IReservationUpdate;
       for (const key in this.#attributes) {
         // @ts-ignore
-        if (reservationUpdateFields.includes(key) && JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key])) {
+        if (reservationUpdateFields.includes(key) && (!this.#original || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
           // @ts-ignore
           newData[key] = this.#attributes[key]
         }
       }
-
-
+      
       // Nothing to update
       if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum)
-      const responseUpdate = await this.addReservationUpdateRequest(conditions, newData).send()
-      return this.find(this.#attributes.GuestNum)
+
+      await this.addReservationUpdateRequest(conditions, newData).send()
+
+      return this.find(GuestNum)
     } else {
       const responseUpdate = await this.addReservationInsertRequest(this.#attributes as IReservationInsert).send()
       return this.find(responseUpdate.data.GuestNum)

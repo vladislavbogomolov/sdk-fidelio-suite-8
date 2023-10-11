@@ -85,6 +85,7 @@ export const reservationUpdateFields: IReservationUpdateFields[] = [
     "ReservationComment1",
     "ReservationComment2",
     "ProfileID",
+    "ProfileGlobalID",
     "PaymentMethod",
     "CrsSystem",
     "CrsResNumber",
