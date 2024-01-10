@@ -114,7 +114,7 @@ export class Reservation extends FidelioRequest {
           newData[key] = this.#attributes[key]
         }
       }
-      
+
       // Nothing to update
       if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum)
 
