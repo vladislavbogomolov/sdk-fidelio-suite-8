@@ -8,9 +8,10 @@ import {
 import {reservationUpdateFields} from "../requests/objects/reservation/ReservationQueryFields";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservationConditionFields";
-import {IOperation} from "../interfaces/types";
+import {INote, IOperation} from "../interfaces/types";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import {IPackageCode} from "../interfaces/package";
+import {Note} from "./Note";
 
 export class Reservation extends FidelioRequest {
 
@@ -54,7 +55,7 @@ export class Reservation extends FidelioRequest {
     this.#attributes = Object.assign({}, attributes);
   }
 
-  set(attributes: IReservationUpdate) {
+  set(attributes: IReservation) {
     this.#attributes = Object.assign(this.#attributes, attributes);
     return this;
   }
@@ -153,6 +154,7 @@ export class Reservation extends FidelioRequest {
 
   where<T extends keyof IReservationConditionFieldsX, K extends IReservationConditionFieldsX>(name: T, value: K[T], operation: IOperation = 'eq'): Reservation {
     this.#conditions.addAnd(name, value, operation)
+    if (name === this.#privateKey) this.set({GuestNum: Number(value)})
 
     return this
   }
@@ -181,16 +183,28 @@ export class Reservation extends FidelioRequest {
    * @param note
    */
 
-  /*addNote(note: INote) {
-      note.subject = "Reservation";
-      const noteClass: Note = new Note(note);
-      if (this.#original.GuestNum) {
-          noteClass.where("GuestNum", this.#original.GuestNum)
-      }
-      this.#attributes.Notes.push(noteClass)
+  addNote(note: INote) {
+    if (!this.#attributes.Notes) {
+      this.#attributes.Notes = [];
+    }
+    this.#attributes.Notes.push(note)
+    return this;
+  }
 
-      return this
-  }*/
+
+  addNote_old(note: INote) {
+    note.subject = "Reservation";
+    const noteClass: Note = new Note(note);
+    if (this.#attributes.GuestNum) {
+      noteClass.where("GuestNum", this.#attributes.GuestNum)
+    }
+    if (!this.#attributes.Notes) {
+      this.#attributes.Notes = [];
+    }
+    this.#attributes.Notes.push(noteClass)
+
+    return this
+  }
 
 
   /**

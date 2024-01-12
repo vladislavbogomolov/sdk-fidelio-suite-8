@@ -48,9 +48,10 @@ import {
     Language,
     NationalityISO3,
     NationalityISO2,
-    ProfileGlobalID, GuestArrival, GuestDeparture,
+    ProfileGlobalID, GuestArrival, GuestDeparture, Child,
 } from "../types"
 import {IReservationInsert} from "../reservation/IReservationFields";
+import {IChild} from "../availability";
 
 
 export interface IProfile {
@@ -207,5 +208,6 @@ export interface IProfileAndReservation {
     CrsResNumber?: string,
     MarketCode: string,
     SourceCode: string,
-    ChannelCode: string
+    ChannelCode: string,
+    Child: Child
 }

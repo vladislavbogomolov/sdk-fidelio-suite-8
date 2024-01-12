@@ -140,7 +140,7 @@ export type INote = {
 }
 
 export type ReservationAttribute = any
-export type Child = any
+export type Child = {[key: string]: number}
 export type AccompanyingGuests = {
     name: "AccompanyingGuest",
     name1?: string,

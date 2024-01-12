@@ -54,13 +54,16 @@ context.CustomField = (customFields: any): any => {
     return result
 }
 
-context.Notes = (Notes: Note[]): any => {
+context.Notes = (Notes: any[]): any => {
     const result: IFieldSimple[] = [];
 
+
     Notes.forEach(note => {
+        console.log(note)
+
         result.push({
-            $: {...note.attributes, name: "Notes"},
-            _: note.attributes.value
+            $: {...note, name: "Notes"},
+            _: note.value
         })
     })
 

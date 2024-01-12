@@ -87,7 +87,7 @@ import {IPackageCode} from "../package";
 
 
 export interface IReservation {
-    readonly GuestNum: GuestNum,
+    GuestNum?: GuestNum,
     readonly GuestFirstname?: GuestFirstname,
     readonly GuestName?: GuestName,
     Name2?: Name2,
@@ -95,8 +95,8 @@ export interface IReservation {
     RoomNum?: RoomNum,
     GuestArrival?: GuestArrival,
     GuestDeparture?: GuestDeparture,
-    readonly ReservationState?: ReservationState,
-    readonly ReservationStatus?: ReservationStatus,
+    ReservationState?: ReservationState,
+    ReservationStatus?: ReservationStatus,
     ReservationComment1?: ReservationComment1,
     ReservationComment2?: ReservationComment2,
     readonly CheckinDateTime?: CheckinDateTime,
@@ -108,7 +108,7 @@ export interface IReservation {
     PaymentMethod?: PaymentMethod,
     CrsSystem?: CrsSystem,
     CrsResNumber?: CrsResNumber,
-    Notes?: Note[],
+    Notes?: any[],
     NotesList?: any,
     NoOfRooms?: NoOfRooms,
     NoOfAdults?: NoOfAdults,
@@ -175,7 +175,7 @@ export interface IReservationInsert {
     ReservationComment1?: ReservationComment1,
     ReservationComment2?: ReservationComment2,
     ProfileID: ProfileID,
-    ProfileGlobalID: ProfileGlobalID,
+    ProfileGlobalID?: ProfileGlobalID,
     PaymentMethod?: PaymentMethod,
     CrsSystem?: CrsSystem,
     CrsResNumber?: CrsResNumber,
@@ -223,6 +223,7 @@ export type IReservationInsertFields = keyof IReservationInsert;
 export interface IReservationUpdate {
     RoomType?: RoomType,
     RoomNum?: RoomNum,
+    ReservationStatus?: ReservationStatus,
     GuestArrival?: GuestArrival,
     GuestDeparture?: GuestDeparture,
     ReservationComment1?: ReservationComment1,

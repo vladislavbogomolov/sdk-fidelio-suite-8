@@ -73,8 +73,8 @@ export const reservationFields: IReservationFields[] = [
     // "AccompanyingGuest",
     // "ReservationAttribute",
     // "ReservationPreferences",
-    // "NotesList",
-    // "Notes",
+    "NotesList",
+    "Notes",
 ];
 
 export const reservationUpdateFields: IReservationUpdateFields[] = [
@@ -122,6 +122,7 @@ export const reservationUpdateFields: IReservationUpdateFields[] = [
     "AccompanyingGuest",
     "ReservationPreference",
     "Policy",
-    "Notes"
+    "Notes",
+    "ReservationStatus"
 ];
 
