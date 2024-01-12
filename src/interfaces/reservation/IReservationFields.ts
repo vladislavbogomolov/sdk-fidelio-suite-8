@@ -224,6 +224,7 @@ export interface IReservationUpdate {
     RoomType?: RoomType,
     RoomNum?: RoomNum,
     ReservationStatus?: ReservationStatus,
+    ReservationState?: ReservationState,
     GuestArrival?: GuestArrival,
     GuestDeparture?: GuestDeparture,
     ReservationComment1?: ReservationComment1,

@@ -123,6 +123,7 @@ export const reservationUpdateFields: IReservationUpdateFields[] = [
     "ReservationPreference",
     "Policy",
     "Notes",
-    "ReservationStatus"
+    "ReservationStatus",
+    "ReservationState"
 ];
 

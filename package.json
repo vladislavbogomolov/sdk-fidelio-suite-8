@@ -1,6 +1,6 @@
 {
   "name": "sdk-fidelio-suite",
-  "version": "1.0.93",
+  "version": "1.0.95",
   "description": "",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -24,7 +24,7 @@
   "author": "Vladislav Bogomolov",
   "license": "",
   "dependencies": {
-    "axios": "^1.6.2",
+    "axios": "^1.6.5",
     "dotenv": "^16.3.1",
     "fast-xml-parser": "^4.3.2",
     "jszip": "^3.10.1",
