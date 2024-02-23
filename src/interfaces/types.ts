@@ -127,6 +127,13 @@ export type AllowRoomOverbooking = 1
 export type SendConfirmation = any
 export type ReservationPreference = any
 export type RateRoomType = any
+export type PostingID = number
+export type DepartmentCode = number
+export type DepartmentType = 1 | 2 | 3
+export type PostingPrice = number
+export type PostingQuantity = number
+export type PostingDescription = string
+export type PostingDate = string
 
 export type INote = {
     value: string | number
@@ -165,6 +172,6 @@ export type Guest3rdPartyType = any
 
 export type IOperation = "eq" | "neq" | "like" | "le" | "lt" | "ge" | "gt"
 export type IOperators = "AND" | "OR" | "NOT"
-export type ReqType = "Profile" | "Reservation" | "ProfileAndReservation" | "Package" | "Postings" | "FunctionSpaceAvailability" | "BonusPoint" | "BillingInstruction" | "ConferenceBooking" | "CustomQuery" | "ChildrenCategories" | "RateList"
+export type ReqType = "Profile" | "Reservation" | "ProfileAndReservation" | "Package" | "Posting" | "FunctionSpaceAvailability" | "BonusPoint" | "BillingInstruction" | "ConferenceBooking" | "CustomQuery" | "ChildrenCategories" | "RateList"
 export type IMethod = "update" | "query" | "insert"
 export type IDataType = "String" | "Date" | "Float"

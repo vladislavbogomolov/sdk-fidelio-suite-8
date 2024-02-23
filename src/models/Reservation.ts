@@ -1,7 +1,7 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
 import {ReservationCondition} from "../requests/objects/reservation/ReservationCondition";
 import {
-  IReservation,
+  IReservation, IReservationFields,
   IReservationInsert,
   IReservationUpdate,
 } from "../interfaces/reservation/IReservationFields";
@@ -80,9 +80,11 @@ export class Reservation extends FidelioRequest {
    * Send a request for getting a query
    */
 
-  async get(): Promise<Reservation[]> {
-    const res = await this.addReservationQueryRequest(this.#conditions).send();
+  async get(fields: IReservationFields[] = null): Promise<Reservation[]> {
+    const res = await this.addReservationQueryRequest(this.#conditions, fields).send();
     const classes: Reservation[] = []
+
+    if (!res.data) return [];
 
     res.data.forEach((reservation: any) => {
       const newClass = new Reservation(reservation)

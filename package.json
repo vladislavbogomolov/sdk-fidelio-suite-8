@@ -1,6 +1,6 @@
 {
   "name": "sdk-fidelio-suite",
-  "version": "1.0.95",
+  "version": "1.0.99",
   "description": "",
   "main": "dist/index.js",
   "type": "commonjs",

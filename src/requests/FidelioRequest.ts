@@ -12,7 +12,7 @@ import {PackageFields} from "./objects/package/PackageFields";
 import {PackageCondition} from "./objects/package/PackageCondition";
 import {IPackageFields} from "../interfaces/package";
 import {IMethod, ReqType} from "../interfaces/types";
-import {deleteReservation} from "./objects/commands/commands";
+import {createPosting, deleteReservation} from "./objects/commands/commands";
 import {IDeleteReservationOption} from "../interfaces/commamds";
 import xml2js from "xml2js";
 import {IConnection} from "../config/connections";
@@ -22,6 +22,8 @@ import {IRateListFields} from "../interfaces/RateList";
 import {RateList} from "./objects/RateList";
 import {IProfileAndReservation} from "../interfaces/profile";
 import {IProfile} from "../interfaces/profile/IProfileFields";
+import {IPostingInsertFields} from "../interfaces/posting";
+import {postingFields} from "./objects/Posting";
 
 
 const builder = new xml2js.Builder();
@@ -169,6 +171,29 @@ export class FidelioRequest {
     addReservationDelete = (GuestNum: number, options: IDeleteReservationOption = null) => {
         const request = deleteReservation(GuestNum, options)
         return this.addRequest(request)
+    }
+
+    // --------------------------------------------  POSTING  -----------------------------------------------------------
+
+    /**
+     * Posting - Selection
+     * @param conditions
+     * @param fields
+     */
+    addPostingQueryRequest = <Condition, IFields>(conditions: Condition, fields: IFields[] = null) => {
+        return this.addQuery(conditions, fields ?? postingFields, "Posting")
+    }
+
+    /**
+     * Posting - Create
+     * @param posting
+     */
+    addPostingCreateRequest = (posting: IPostingInsertFields) => {
+
+        const request = createPosting(posting)
+
+        return this.addRequest(request)
+
     }
 
 

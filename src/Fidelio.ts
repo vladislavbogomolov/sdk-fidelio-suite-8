@@ -6,6 +6,7 @@ import {ChildrenCategories} from "./models/ChildrenCategories";
 import {RateList} from "./models/RateList";
 import {CreateProfileAndReservation} from "./models/ProfileAndReservation";
 import {Package} from "./models/Package";
+import {Posting} from "./models/Posting";
 
 export class Fidelio {
     public AvailabilityForWeb = new AvailabilityForWeb();
@@ -15,6 +16,7 @@ export class Fidelio {
     public ChildrenCategories = new ChildrenCategories();
     public RateList = new RateList();
     public Packages = new Package();
+    public Posting = new Posting();
     readonly connection: IConnection;
 
     constructor(connection: IConnection) {
@@ -26,6 +28,7 @@ export class Fidelio {
         this.ChildrenCategories.setConnection(this.connection);
         this.RateList.setConnection(this.connection);
         this.Packages.setConnection(this.connection);
+        this.Posting.setConnection(this.connection);
 
     }
 }

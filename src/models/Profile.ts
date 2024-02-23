@@ -3,7 +3,7 @@ import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {INote, IOperation} from "../interfaces/types";
 import {Note} from "./Note";
 import {IDeleteReservationOption} from "../interfaces/commamds";
-import {IProfile, IProfileInsertFields} from "../interfaces/profile/IProfileFields";
+import {IProfile, IProfileFields, IProfileInsertFields} from "../interfaces/profile/IProfileFields";
 import {IProfileConditionFields, IProfileUpdateFields} from "../interfaces/profile";
 import {profileFields} from "../requests/objects/profile/ProfileQueryFields";
 import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditionFields";
@@ -73,10 +73,11 @@ export class Profile extends FidelioRequest {
    * Send a request for getting a query
    */
 
-  async get(): Promise<Profile[]> {
-    const res = await this.addProfileQueryRequest(this.#conditions).send();
+  async get(selectFields: IProfileFields[] = null): Promise<Profile[]> {
+    const res = await this.addProfileQueryRequest(this.#conditions, selectFields).send();
     const classes: Profile[] = []
 
+    if (!res.data) return [];
     res.data.forEach((profile: any) => {
       const newClass = new Profile(profile)
       newClass.where(this.#privateKey, profile[this.#privateKey])

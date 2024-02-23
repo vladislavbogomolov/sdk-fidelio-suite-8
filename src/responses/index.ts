@@ -3,7 +3,6 @@ import xml2js from 'xml2js'
 import {IFidelioResponse, QueryResponse, Row} from "../interfaces/response";
 import dayjs from 'dayjs';
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import {NotFoundError} from "../errors";
 
 dayjs.extend(customParseFormat)
 
@@ -14,7 +13,8 @@ const fieldsNumberType = [
     "NoMailing", "NoEMailing", "BedReservation",
     "Price", "ForeignTotalStay", "NetRoomRevenue", "BaseCurrencyPrice", "PackagePrice", "Availability",
     "PackagePriceType", "PackageIncluded", "PackageSinglePerRes", "PackageShowInRes", "PackagePercentage",
-    "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL"
+    "PackageDisplOrder", "DepartmentCode", "HasShare", "ResStatusPriorCXL", "PostingID", "DepartmentType",
+    "PostingQuantity", "PostingGuestNumOrig", "PostingProfileOrigID", "PostingPrice"
 ]
 
 const fieldsDateTimeType = [
@@ -183,7 +183,8 @@ const handlerResponseFidelio: any = {
             if (typeof rows.rows[0] === "string" && rows.rows[0] === '') {
 
                 if (rows.$.Name.toString() !== 'AvailabilityForWeb') {
-                    throw new NotFoundError("The requested resource could not be found.");
+                    return [];
+                    // throw new NotFoundError("The requested resource could not be found.");
                 }
 
                 console.log(rows.rows)

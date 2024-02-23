@@ -1,4 +1,5 @@
 import {IDeleteReservationOption} from "../../../interfaces/commamds";
+import {IPosting, IPostingInsertFields} from "../../../interfaces/posting";
 
 
 export const deleteReservation = (GuestNum: number, options: IDeleteReservationOption = null) => {
@@ -10,6 +11,17 @@ export const deleteReservation = (GuestNum: number, options: IDeleteReservationO
                 Reason,
                 DeleteTraces,
                 SendEmail,
+            }
+        }
+    }
+}
+
+export const createPosting = (posting: IPostingInsertFields) => {
+
+    return {
+        command: {
+            post: {
+                crm_posting: posting
             }
         }
     }
