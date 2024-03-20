@@ -174,11 +174,14 @@ type responseType = 'queryResponse' | 'insertResponse' | 'updateResponse';
 
 const handlerResponseFidelio: any = {
     queryResponse: (queryResponse: QueryResponse[]) => {
+
+        if (!queryResponse) return [];
+
         const responses: any = [];
+
         queryResponse.forEach((rows) => {
 
             const requestsObject: any[] = [];
-
 
             if (typeof rows.rows[0] === "string" && rows.rows[0] === '') {
 
@@ -187,12 +190,12 @@ const handlerResponseFidelio: any = {
                     // throw new NotFoundError("The requested resource could not be found.");
                 }
 
-                console.log(rows.rows)
-
 
             } else {
                 rows.rows[0].row.forEach((row: any) => {
                     let object: any = {};
+
+                    if (!row.fields[0].field) return null;
 
                     row.fields[0].field.forEach((field: any) => {
 
@@ -221,7 +224,6 @@ const handlerResponseFidelio: any = {
 
             }
             responses.push(requestsObject);
-
 
 
         })

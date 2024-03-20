@@ -33,7 +33,8 @@ export interface Row {
 }
 
 export interface Fields {
-    fields: Field[];
+    // fields: Field[]; maybe empty
+    fields: any[];
 }
 
 export interface Field {
@@ -42,41 +43,3 @@ export interface Field {
 
 
 type IResponseStatus = "OK" | "CO" | "IA" | "NG" | "GA" | "NP" | "UR" | "IR" | "IC" | "AD" | "GF"
-
-
-/*const x: IFidelioResponse = {
-    fidelio: {
-        $: {
-            Version: "1.1.0"
-        },
-        response: [
-            {
-                $: {
-                    ID: "1234",
-                    Status: "OK",
-                    Message: "134323"
-                },
-                queryResponse: [
-                    {
-                        rows: [
-                            {
-                                row: [
-                                    {
-                                        fields: [
-                                            {
-                                                field: {
-                                                    Good: ""
-                                                }
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-}
-*/
