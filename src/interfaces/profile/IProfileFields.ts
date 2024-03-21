@@ -48,7 +48,7 @@ import {
     Language,
     NationalityISO3,
     NationalityISO2,
-    ProfileGlobalID, GuestArrival, GuestDeparture, Child,
+    ProfileGlobalID, GuestArrival, GuestDeparture, Child, INote,
 } from "../types"
 import {IReservationInsert} from "../reservation/IReservationFields";
 import {IChild} from "../availability";
@@ -56,14 +56,14 @@ import {IChild} from "../availability";
 
 export interface IProfile {
     ProfileID?: ProfileID,
-    GuestFirstname: GuestFirstname,
-    GuestName: GuestName,
+    GuestFirstname?: GuestFirstname,
+    GuestName?: GuestName,
     Name2?: string,
     LoginName?: string,
     LoginPassword?: string,
     CorporateID?: string,
-    ProfileType: ProfileType,
-    ProfileCategory: ProfileCategory,
+    ProfileType?: ProfileType,
+    ProfileCategory?: ProfileCategory,
     Title?: Title
     AddressGreeting?: AddressGreeting,
     LetterGreeting?: LetterGreeting,
@@ -111,7 +111,7 @@ export interface IProfile {
     Membership?: Membership,
     ProfilePreference?: ProfilePreference,
     ProfilePreferences?: ProfilePreferences,
-    Notes?: Note[],
+    Notes?: INote[],
     NotesList?: any,
     Addresses?: any,
     Communication?: any,
