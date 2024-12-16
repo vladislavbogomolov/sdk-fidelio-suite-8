@@ -7,6 +7,7 @@ import {RateList} from "./models/RateList";
 import {CreateProfileAndReservation} from "./models/ProfileAndReservation";
 import {Package} from "./models/Package";
 import {Posting} from "./models/Posting";
+import {CustomQuery} from "./models/CustomQuery";
 
 export class Fidelio {
     public AvailabilityForWeb = new AvailabilityForWeb();
@@ -17,6 +18,7 @@ export class Fidelio {
     public RateList = new RateList();
     public Packages = new Package();
     public Posting = new Posting();
+    public CustomQuery = new CustomQuery();
     readonly connection: IConnection;
 
     constructor(connection: IConnection) {
@@ -29,6 +31,6 @@ export class Fidelio {
         this.RateList.setConnection(this.connection);
         this.Packages.setConnection(this.connection);
         this.Posting.setConnection(this.connection);
-
+        this.CustomQuery.setConnection(this.connection);
     }
 }
