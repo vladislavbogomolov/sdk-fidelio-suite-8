@@ -41,7 +41,7 @@ export class Note {
 
     }
 
-    setText (text: string | number) {
+    setText (text: string) {
         this.attributes.value = text;
         return this
     }

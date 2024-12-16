@@ -10,6 +10,9 @@ export const axiosApiInstance = axios.create({
         "V8-supported": "Zip/Msg",
         "content-type": "V8/ZIP",
         "User-Agent": "sdk-fidelio-suite-8",
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
     }
 })
 

@@ -59,8 +59,6 @@ context.Notes = (Notes: any[]): any => {
 
 
     Notes.forEach(note => {
-        console.log(note)
-
         result.push({
             $: {...note, name: "Notes"},
             _: note.value

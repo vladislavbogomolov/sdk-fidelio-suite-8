@@ -136,7 +136,7 @@ export type PostingDescription = string
 export type PostingDate = string
 
 export type INote = {
-    value: string | number
+    value: string,
     attr: string,
     subject?: "Profile" | "Reservation" | "Postings",
     subjectID?: number,
