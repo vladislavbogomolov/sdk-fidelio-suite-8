@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import {IChild} from "../../../interfaces/availability";
 import {IFieldSimple} from "../../../interfaces/Request";
-import {Note} from "../../../models/Note";
 import {AccompanyingGuests} from "../../../interfaces/types";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {IPackageCode} from "../../../interfaces/package";
@@ -62,6 +61,19 @@ context.Notes = (Notes: any[]): any => {
         result.push({
             $: {...note, name: "Notes"},
             _: note.value
+        })
+    })
+
+    return result
+}
+
+context.Membership = (Memberships: any[]): any => {
+    const result: IFieldSimple[] = [];
+
+    Memberships.forEach(membership => {
+        result.push({
+            $: {...membership, name: "Membership"},
+            _: membership.value
         })
     })
 
