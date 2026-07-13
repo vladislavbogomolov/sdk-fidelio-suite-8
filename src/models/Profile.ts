@@ -6,7 +6,6 @@ import {IProfile, IProfileFields, IProfileInsertFields} from "../interfaces/prof
 import {IProfileConditionFields, IProfileUpdateFields} from "../interfaces/profile";
 import {profileUpdateFields} from "../requests/objects/profile/ProfileQueryFields";
 import {ProfileCondition} from "../requests/objects/profile/ProfileCondition";
-import {Fidelio} from "../Fidelio";
 
 export class Profile extends FidelioRequest {
 
@@ -95,7 +94,7 @@ export class Profile extends FidelioRequest {
      */
 
     async delete(ProfileID: number | null = null, options: IDeleteReservationOption | null = null) {
-        return new FidelioRequest().addReservationDelete(ProfileID ?? (this.#original![this.#privateKey] as number), options).send();
+        return new FidelioRequest().setConnection(this.connection).addReservationDelete(ProfileID ?? (this.#original![this.#privateKey] as number), options).send();
     }
 
     /**
@@ -119,14 +118,13 @@ export class Profile extends FidelioRequest {
 
             return this.find(this.#attributes[this.#privateKey] as number)
         } else {
-            // create
-            return undefined as unknown as Profile;
+            return this.create(this.#attributes as IProfileInsertFields)
         }
     }
 
     async create(profile: IProfileInsertFields) {
         const responseUpdate = await this.addProfileCreateRequest(profile).send();
-        return new Fidelio(this.connection).Profile.find(responseUpdate.data.ProfileID)
+        return this.find(responseUpdate.data.ProfileID)
     }
 
     /**

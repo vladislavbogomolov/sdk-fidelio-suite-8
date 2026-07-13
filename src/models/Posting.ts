@@ -85,6 +85,7 @@ export class Posting extends FidelioRequest {
         res.data.forEach((posting: any) => {
             const newClass = new Posting(posting)
             newClass.where(this.#privateKey, posting[this.#privateKey])
+            newClass.setConnection(this.connection)
             classes.push(newClass)
         })
 
