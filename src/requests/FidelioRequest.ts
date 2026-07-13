@@ -6,10 +6,8 @@ import {axiosApiInstance} from "./client/client";
 import {profileFields} from "./objects/profile/ProfileQueryFields";
 import {reservationFields} from "./objects/reservation/ReservationQueryFields";
 import {IReservationFields, IReservationInsert, IReservationUpdate} from "../interfaces/reservation/IReservationFields";
-import {ReservationCondition} from "./objects/reservation/ReservationCondition";
-import {ProfileCondition} from "./objects/profile/ProfileCondition";
+import {Condition} from "./objects/Condition";
 import {PackageFields} from "./objects/package/PackageFields";
-import {PackageCondition} from "./objects/package/PackageCondition";
 import {IPackageFields} from "../interfaces/package";
 import {IMethod, ReqType} from "../interfaces/types";
 import {createPosting, deleteReservation} from "./objects/commands/commands";
@@ -65,7 +63,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addRateListRequest = (conditions: PackageCondition | null = null, fields: IRateListFields[] | null = null) => {
+    addRateListRequest = (conditions: Condition<any> | null = null, fields: IRateListFields[] | null = null) => {
         return this.addQuery(conditions?.conditions ?? null, fields ?? RateList, "RateList")
     }
 
@@ -77,7 +75,7 @@ export class FidelioRequest {
      * @param from
      * @param fields
      */
-    addCustomQueryRequest = (conditions: PackageCondition | null = null, from: string, fields: string[]) => {
+    addCustomQueryRequest = (conditions: Condition<any> | null = null, from: string, fields: string[]) => {
         return this.addQuery(conditions?.conditions ?? null, fields, "CustomQuery", "query", from)
     }
 
@@ -88,7 +86,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addPackageRequest = (conditions: PackageCondition | null = null, fields: IPackageFields[] | null = null) => {
+    addPackageRequest = (conditions: Condition<any> | null = null, fields: IPackageFields[] | null = null) => {
         return this.addQuery(conditions?.conditions ?? null, fields ?? PackageFields, "Package")
     }
 
@@ -99,7 +97,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addProfileQueryRequest = (conditions: ProfileCondition, fields: IProfileFields[] | null = null) => {
+    addProfileQueryRequest = (conditions: Condition<any>, fields: IProfileFields[] | null = null) => {
         return this.addQuery(conditions.conditions, fields ?? profileFields, "Profile")
     }
 
@@ -108,7 +106,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addProfileUpdateRequest = (conditions: ProfileCondition, fields: IProfileUpdateFields) => {
+    addProfileUpdateRequest = (conditions: Condition<any>, fields: IProfileUpdateFields) => {
         return this.addQuery(conditions.conditions, fields, "Profile", "update")
     }
 
@@ -127,7 +125,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addReservationQueryRequest = (conditions: ReservationCondition, fields: IReservationFields[] | null = null) => {
+    addReservationQueryRequest = (conditions: Condition<any>, fields: IReservationFields[] | null = null) => {
         return this.addQuery(conditions.conditions, fields ?? reservationFields, "Reservation")
     }
 
@@ -152,7 +150,7 @@ export class FidelioRequest {
      * @param conditions
      * @param fields
      */
-    addReservationUpdateRequest = (conditions: ReservationCondition, fields: IReservationUpdate) => {
+    addReservationUpdateRequest = (conditions: Condition<any>, fields: IReservationUpdate) => {
         return this.addQuery(conditions.conditions, fields, "Reservation", "update")
     }
 

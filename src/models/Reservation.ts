@@ -79,7 +79,7 @@ export class Reservation extends FidelioRequest {
      */
 
     async get(fields: IReservationFields[] | null = null): Promise<Reservation[]> {
-        const res = await this.addReservationQueryRequest(this.#conditions as unknown as ReservationCondition, fields).send();
+        const res = await this.addReservationQueryRequest(this.#conditions, fields).send();
         const classes: Reservation[] = []
 
         if (!res.data) return [];
@@ -104,7 +104,7 @@ export class Reservation extends FidelioRequest {
 
             const conditions = this.#attributes.GuestNum
                 ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum)
-                : this.#conditions as unknown as ReservationCondition;
+                : this.#conditions;
 
             const GuestNum = conditions.conditions[0].value as number;
 

@@ -73,7 +73,7 @@ export class Profile extends FidelioRequest {
      */
 
     async get(selectFields: IProfileFields[] | null = null): Promise<Profile[]> {
-        const res = await this.addProfileQueryRequest(this.#conditions as unknown as ProfileCondition, selectFields).send();
+        const res = await this.addProfileQueryRequest(this.#conditions, selectFields).send();
         const classes: Profile[] = []
 
         if (!res.data) return [];
@@ -114,7 +114,7 @@ export class Profile extends FidelioRequest {
             // Nothing to update
             if (Object.keys(newData).length === 0) return this.find(this.#attributes[this.#privateKey] as number)
 
-            await this.addProfileUpdateRequest(new PackageCondition().add(this.#privateKey, this.#attributes[this.#privateKey]) as unknown as ProfileCondition, newData).send()
+            await this.addProfileUpdateRequest(new PackageCondition().add(this.#privateKey, this.#attributes[this.#privateKey]), newData).send()
 
             return this.find(this.#attributes[this.#privateKey] as number)
         } else {
