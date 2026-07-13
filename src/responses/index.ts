@@ -33,7 +33,7 @@ const fidelioToDateTime = (date: string): string | null => {
     if (!date) return null;
 
     if (date.indexOf(".000 UTC-60") > 0) {
-        return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY hh:mm:ss").toJSON()
+        return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY HH:mm:ss").toJSON()
     } else {
         return dayjs(date, "DD.MM.YYYY").toJSON()
     }
@@ -44,7 +44,7 @@ const fidelioToDate = (date: string): string | null => {
     if (!date) return null;
 
     if (date.indexOf(".000 UTC-60") > 0) {
-        return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY hh:mm:ss").format('YYYY-MM-DD')
+        return dayjs(date.replace(".000 UTC-60", ""), "DD.MM.YYYY HH:mm:ss").format('YYYY-MM-DD')
     } else {
         return dayjs(date, "DD.MM.YYYY").format('YYYY-MM-DD')
     }
