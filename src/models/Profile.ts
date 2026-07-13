@@ -95,7 +95,7 @@ export class Profile extends FidelioRequest {
      */
 
     async delete(ProfileID: number | null = null, options: IDeleteReservationOption | null = null) {
-        return new FidelioRequest().addReservationDelete(ProfileID ?? (this.#original![this.#privateKey] as number), options = null).send();
+        return new FidelioRequest().addReservationDelete(ProfileID ?? (this.#original![this.#privateKey] as number), options).send();
     }
 
     /**

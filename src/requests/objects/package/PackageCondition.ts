@@ -20,14 +20,14 @@ export class PackageCondition{
     }
 
     addAnd(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
-        return this.add(name, value, operation, "AND")
+        return this.add(name, value, operation, "AND", dataType)
     }
 
     addNot(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
-        return this.add(name, value, operation, "NOT")
+        return this.add(name, value, operation, "NOT", dataType)
     }
 
     addOr(name: any, value: any, operation: IOperation = 'eq', dataType: IDataType = 'String') {
-        return this.add(name, value, operation, "OR")
+        return this.add(name, value, operation, "OR", dataType)
     }
 }

@@ -207,7 +207,7 @@ export class FidelioRequest {
         const body: any = {
             fidelio: {
                 $: {
-                    Version: '1.1.0',
+                    Version: this.connection.FIDELIO_VERSION ?? '1.1.0',
                 },
                 request: [{
                     $: {

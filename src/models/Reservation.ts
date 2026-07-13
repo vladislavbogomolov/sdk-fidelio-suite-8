@@ -140,7 +140,7 @@ export class Reservation extends FidelioRequest {
      */
 
     async delete(GuestNum: number | null = null, options: IDeleteReservationOption | null = null) {
-        const response = await this.addReservationDelete(GuestNum ?? this.#original!.GuestNum!, options = null).send();
+        const response = await this.addReservationDelete(GuestNum ?? this.#original!.GuestNum!, options).send();
         return response.data[0];
     }
 

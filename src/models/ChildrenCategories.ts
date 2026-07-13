@@ -5,7 +5,7 @@ export class ChildrenCategories extends FidelioRequest {
     private dataOrigin: any
 
     async get(fields: IFieldsRequestChildrenCategories[] | null = null) {
-        const response = await this.addChildrenCategoriesRequest(null, fields = null).send()
+        const response = await this.addChildrenCategoriesRequest(null, fields).send()
         response.data.map((row: IFieldsRequestChildrenCategories) => {
             row.ChildrenCategoriesFromAge = Number(row.ChildrenCategoriesFromAge)
             row.ChildrenCategoriesToAge = Number(row.ChildrenCategoriesToAge)
