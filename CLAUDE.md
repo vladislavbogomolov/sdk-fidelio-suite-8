@@ -11,9 +11,12 @@ A TypeScript SDK (published to npmjs as `sdk-fidelio-suite`) for the Fidelio Sui
 - Build: `npm run build` (tsc, strict; output in gitignored `dist/`, which is all the published package ships)
 - Lint: `npm run lint` (ESLint 10 flat config, typescript-eslint)
 - Typecheck src + tests: `npm run typecheck`
-- All tests: `npm test` (one-shot, serial); watch mode: `npm run test:watch`
+- Offline tests (golden + unit, no server, run in CI): `npm run test:offline`
+- Regenerate golden fixtures after an INTENTIONAL wire change: `npm run golden:update`
+- All tests incl. live integration: `npm test` (one-shot, serial); watch mode: `npm run test:watch`
 - Single test file: `npm test test/reservation/note.test.ts`
 - Scratchpad: `npm start` runs the gitignored `playground.ts` under nodemon — that file may hold live credentials and must never be committed
+- The Oracle Suite 8 XML interface spec (F17639) lives at `docs/F17639.pdf` — local-only/gitignored (the repo is public); consult it before changing field lists, serializers, or update whitelists
 
 ### Releases are automated — commit style matters
 
@@ -47,4 +50,8 @@ Fidelio's wire format is `DD.MM.YYYY` (sometimes suffixed `.000 UTC-60`). Condit
 
 ### Wire-format invariant
 
-The emitted XML shape and the parsed response shape are the SDK's contract with live Fidelio servers. When refactoring, preserve them byte-for-byte unless a change is deliberately released as breaking.
+The emitted XML shape and the parsed response shape are the SDK's contract with live Fidelio servers. The golden tests (`test/golden/`) enforce this: `buildGoldenEnvelope()` locks `getBody()` byte-for-byte and fixtures lock `parseResponse()` normalization; CI runs them on every PR and release. A failing golden test means the wire format changed — regenerate fixtures via `npm run golden:update` only when the change is deliberate, and consider whether it needs a breaking release.
+
+### Round-trip economy
+
+Every call pays hundreds of ms to the Fidelio IIS wrapper, so the SDK keeps connections alive (keepAlive agents), applies a 60s default timeout (`IConnection.TIMEOUT_MS`), supports field selection on `find(id, fields)`, and lets writes skip the follow-up fetch via `save({refetch: false})` / `create(data, {refetch: false})` — inserts then hydrate from the insert response, which per the spec carries the assigned IDs (including the TryToGlobalize GlobalID; see the backfill in `Profile.create()`).

@@ -21,10 +21,12 @@ const fidelio = new Fidelio({
     FIDELIO_USERNAME: "API",
     FIDELIO_PASSWORD: "...",
     FIDELIO_VENDOR: "myVendor",
+    TIMEOUT_MS: 60000, // optional; default 60s, 0 disables
 });
 
-// Find one reservation
+// Find one reservation (optionally only specific fields — smaller payload)
 const reservation = await fidelio.Reservation.find(42447);
+const slim = await fidelio.Reservation.find(42447, ["GuestNum", "RoomType"]);
 console.log(reservation.data.GuestName);
 
 // Query with conditions (Fidelio dates are DD.MM.YYYY)
@@ -36,6 +38,11 @@ const arrivals = await fidelio.Reservation
 // updatable fields and returns a freshly fetched instance
 reservation.data.ReservationComment1 = "VIP arrival";
 const updated = await reservation.save();
+
+// {refetch: false} skips the follow-up fetch — half the round trips.
+// Updates return the same instance; inserts hydrate from the insert
+// response (incl. the TryToGlobalize GlobalID).
+await reservation.save({refetch: false});
 
 // Create profile + notes / memberships
 const profile = await fidelio.Profile.create({
@@ -85,13 +92,20 @@ response XML to the console.
 ## Development
 
 ```bash
-npm run build       # compile to dist/
-npm run lint        # ESLint
-npm run typecheck   # strict tsc over src + test
-npm test            # jest, one-shot (see warning below)
-npm run test:watch  # jest watch mode
-npm start           # run playground.ts (gitignored scratchpad) with nodemon
+npm run build         # compile to dist/
+npm run lint          # ESLint
+npm run typecheck     # strict tsc over src + test
+npm run test:offline  # golden wire-format + unit tests (no server, runs in CI)
+npm run golden:update # regenerate golden fixtures after an INTENTIONAL wire change
+npm test              # ALL tests incl. live integration (see warning below)
+npm run test:watch    # jest watch mode
+npm start             # run playground.ts (gitignored scratchpad) with nodemon
 ```
+
+The golden tests lock the emitted request XML byte-for-byte and the parsed
+response shapes — the SDK's actual contract with Fidelio servers. If they fail,
+your change altered the wire format; regenerate fixtures only when that is
+deliberate.
 
 **Warning:** the test suite consists of live integration tests. They connect to
 the Fidelio server configured in `.env` (see `.env.example`) and **modify real
