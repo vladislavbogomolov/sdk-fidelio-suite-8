@@ -22,4 +22,4 @@ jobs:
 
       - run: npm run build
 
-      - run: npm run test:golden
+      - run: npm run test:offline
