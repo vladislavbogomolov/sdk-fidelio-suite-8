@@ -1,14 +1,13 @@
 import {describe, expect, test} from '@jest/globals';
-import {CustomQuery} from "../../src/models/CustomQuery";
+import {fidelioFromEnv} from "../helpers/connection";
 
 describe('Custom Fields', () => {
-
 
     jest.setTimeout(20000);
 
     test('Get CustomFields from XCMS', async () => {
 
-        const result = await new CustomQuery().get('XCMS', ['XCMS_NAME3'])
+        const result = await fidelioFromEnv().CustomQuery.get('XCMS', ['XCMS_NAME3'])
 
         expect(result.data.length).toBeGreaterThan(0);
 
@@ -20,7 +19,6 @@ describe('Custom Fields', () => {
                     })
                 ]
             )
-
         )
     });
 

@@ -1,12 +1,12 @@
 import {describe, expect, test} from '@jest/globals';
-import {Reservation} from "../../src/models/Reservation";
-
+import {fidelioFromEnv} from "../helpers/connection";
 
 const testReservationID = Number(process.env.TEST_RESERVATION_ID)
+
 describe('Reservation', () => {
 
     test('Find reservation', async () => {
-        const res = await new Reservation().find(testReservationID)
+        const res = await fidelioFromEnv().Reservation.find(testReservationID)
         expect(res.data.GuestNum).toBe(testReservationID);
 
         expect(res.data).toEqual(
@@ -22,8 +22,6 @@ describe('Reservation', () => {
                 ReservationStatus: expect.any(Number),
                 ReservationComment1: expect.any(String),
                 ReservationComment2: expect.any(String),
-                // CheckinDateTime: expect.anything(),
-                // CheckoutDateTime: expect.anything(),
                 ReservationType: expect.any(String),
                 NoAvailReason: expect.any(Number),
                 ProfileID: expect.any(Number),
@@ -59,32 +57,30 @@ describe('Reservation', () => {
     })
 
     test('Get reservations', async () => {
-        const reservations = await new Reservation().where('GuestArrival', '01.06.2023', 'ge').get()
+        const reservations = await fidelioFromEnv().Reservation.where('GuestArrival', '01.06.2023', 'ge').get()
         expect(reservations.length).toBeGreaterThan(1)
     })
 
 });
 
-
 describe('Update Reservation', () => {
-    const reservation = new Reservation()
+    const fidelio = fidelioFromEnv()
+
     test('ReservationComment1 & ReservationComment2', async () => {
-        const res = await reservation.find(testReservationID)
+        const res = await fidelio.Reservation.find(testReservationID)
         const testNumber = Math.random().toString(36).substring(7);
         res.data.ReservationComment1 = testNumber;
         res.data.ReservationComment2 = testNumber;
         await res.save()
-        const resUpdated = await reservation.find(testReservationID)
+        const resUpdated = await fidelio.Reservation.find(testReservationID)
         expect(resUpdated.data.ReservationComment2).toBe(testNumber);
     });
 
     test('Update NoOfAdults', async () => {
-        const res = await reservation.find(testReservationID);
-        res.data.NoOfAdults = [1,2].find( num => num !== res.data.NoOfAdults );
+        const res = await fidelio.Reservation.find(testReservationID);
+        res.data.NoOfAdults = [1, 2].find(num => num !== res.data.NoOfAdults);
         await res.save()
-        let resUpdated = await reservation.find(testReservationID)
+        const resUpdated = await fidelio.Reservation.find(testReservationID)
         expect(resUpdated.data.NoOfAdults).toBe(res.data.NoOfAdults);
-
     });
 });
-

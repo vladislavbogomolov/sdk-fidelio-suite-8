@@ -1,13 +1,11 @@
 import {describe, expect, test} from '@jest/globals';
-import {AvailabilityForWeb} from "../../src/models/AvailabilityForWeb";
-import {IFieldsRequestAvailabilityForWeb} from "../../src/interfaces/availability";
-import {Fidelio} from "../../src";
-import {Connections} from "../../src/config/connections";
-
+import {IFieldsRequestAvailabilityForWeb} from "../../src";
+import {fidelioFromEnv} from "../helpers/connection";
 
 describe('Get availability', () => {
 
     jest.setTimeout(20000);
+
     test('Get availability', async () => {
 
         const reqFields: IFieldsRequestAvailabilityForWeb = {
@@ -19,10 +17,7 @@ describe('Get availability', () => {
             WebOnly: 1
         }
 
-        const connection = new Fidelio(Connections[0]);
-        const result = await connection.AvailabilityForWeb.where(reqFields).get()
-
-        console.log(result)
+        const result = await fidelioFromEnv().AvailabilityForWeb.where(reqFields).get()
 
         expect(result.data.length).toBeGreaterThan(0);
 
@@ -50,7 +45,6 @@ describe('Get availability', () => {
                     })
                 ]
             )
-
         )
     });
 
