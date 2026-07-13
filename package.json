@@ -1,6 +1,6 @@
 {
   "name": "sdk-fidelio-suite",
-  "version": "1.0.106",
+  "version": "2.0.0",
   "description": "TypeScript SDK for the Fidelio Suite 8 hotel PMS XML interface (V8/ZIP protocol)",
   "main": "dist/index.js",
   "type": "commonjs",
