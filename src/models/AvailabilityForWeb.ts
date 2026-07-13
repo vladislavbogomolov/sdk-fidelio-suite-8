@@ -1,9 +1,7 @@
 import {IFieldsRequestAvailabilityForWeb, IFieldsResponseAvailabilityForWeb} from "../interfaces/availability";
 import {FidelioRequest} from "../requests/FidelioRequest";
-import {AxiosResponse} from "axios";
 
-export class AvailabilityForWeb extends FidelioRequest{
-    private fields: IFieldsRequestAvailabilityForWeb;
+export class AvailabilityForWeb extends FidelioRequest {
     private dataOrigin: any
 
     async get() {
@@ -12,9 +10,8 @@ export class AvailabilityForWeb extends FidelioRequest{
         return this;
     }
 
-    where(fields: IFieldsRequestAvailabilityForWeb = null) {
-        const response = this.addAvailabilityRequest(fields)
-        this.dataOrigin = response.data
+    where(fields: IFieldsRequestAvailabilityForWeb) {
+        this.addAvailabilityRequest(fields)
         return this;
     }
 

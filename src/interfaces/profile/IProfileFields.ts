@@ -1,5 +1,3 @@
-import {Note} from "../../models/Note";
-
 import {
     AddressGreeting,
     Birthday,
@@ -50,8 +48,6 @@ import {
     NationalityISO2,
     ProfileGlobalID, GuestArrival, GuestDeparture, Child, INote,
 } from "../types"
-import {IReservationInsert} from "../reservation/IReservationFields";
-import {IChild} from "../availability";
 
 
 export interface IProfile {
@@ -180,7 +176,7 @@ export interface IProfileInsertFields {
     Membership?: Membership,
     ProfilePreference?: ProfilePreference,
     ProfilePreferences?: ProfilePreferences,
-    Notes?: Note[],
+    Notes?: INote[],
     NotesList?: any,
     Addresses?: any,
     Communication?: any,

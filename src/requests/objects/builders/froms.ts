@@ -1,6 +1,4 @@
-
-export const Froms = (from: string): any => {
-
+export const Froms = (from: string | null): any => {
 
     return from ? {
         froms: {

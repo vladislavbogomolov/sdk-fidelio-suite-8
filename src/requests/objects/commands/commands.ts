@@ -1,8 +1,8 @@
 import {IDeleteReservationOption} from "../../../interfaces/commamds";
-import {IPosting, IPostingInsertFields} from "../../../interfaces/posting";
+import {IPostingInsertFields} from "../../../interfaces/posting";
 
 
-export const deleteReservation = (GuestNum: number, options: IDeleteReservationOption = null) => {
+export const deleteReservation = (GuestNum: number, options: IDeleteReservationOption | null = null) => {
     const {Reason, DeleteTraces, SendEmail} = options ?? {Reason: '', DeleteTraces: 0, SendEmail: 0}
     return {
         command: {

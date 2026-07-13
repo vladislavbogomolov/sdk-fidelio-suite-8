@@ -1,22 +1,11 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
 import {IRateListConditionFields, IRateListFields} from "../interfaces/RateList";
-import {IProfileConditionKeyFields} from "../interfaces/profile/IProfileConditionFields";
 import {IOperation} from "../interfaces/types";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
-import {IProfile} from "../interfaces/profile/IProfileFields";
 
-export class RateList extends FidelioRequest{
+export class RateList extends FidelioRequest {
     private dataOrigin: any
     #conditions: PackageCondition = new PackageCondition()
-    readonly #privateKey = 'RateCode'
-    /*async get(fields: IRateListFields[] = null) {
-        const response = await this.addRateListRequest(null, fields = null).send()
-        this.dataOrigin = response.data
-        return this;
-    }*/
-    constructor() {
-        super();
-    }
 
     async get() {
         try {
@@ -27,6 +16,7 @@ export class RateList extends FidelioRequest{
         }
         return this;
     }
+
     /**
      * Add condition
      * @param name

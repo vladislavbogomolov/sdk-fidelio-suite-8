@@ -8,21 +8,17 @@ import {
 } from "../interfaces/posting";
 import {Condition} from "../requests/objects/Condition";
 import {IOperation} from "../interfaces/types";
-import {Fidelio} from "../Fidelio";
 
 export class Posting extends FidelioRequest {
 
-    #attributes: IPosting = null; // Data Fidelio
-    readonly #original: IPosting = null; // Data Fidelio
+    #attributes: IPosting | null = null; // Data Fidelio
     #conditions = new Condition<IPostingConditionFields>()
     readonly #privateKey: IPostingConditionKeyFields = 'PostingID'
 
-    constructor(posting: IPosting = null) {
+    constructor(posting: IPosting | null = null) {
         super();
         if (posting) {
-            const str = JSON.stringify(posting)
-            this.#original = JSON.parse(str);
-            this.#attributes = JSON.parse(str);
+            this.#attributes = JSON.parse(JSON.stringify(posting));
         }
     }
 
@@ -39,7 +35,7 @@ export class Posting extends FidelioRequest {
      */
 
     get data(): IPosting {
-        return this.#attributes
+        return this.#attributes as IPosting
     }
 
     set attributes(attributes: IPosting) {
@@ -78,7 +74,7 @@ export class Posting extends FidelioRequest {
      * Send a request for getting a query
      */
 
-    async get(selectFields: IPostingFields[] = null): Promise<Posting[]> {
+    async get(selectFields: IPostingFields[] | null = null): Promise<Posting[]> {
 
         const res = await this.addPostingQueryRequest(this.#conditions.conditions, selectFields).send();
 

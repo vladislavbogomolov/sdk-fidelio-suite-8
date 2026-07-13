@@ -1,11 +1,11 @@
 import {Fields} from "./fields";
 import {IProfileConditionList} from "../../../interfaces/profile/IProfileConditionFields";
 import {Conditions} from "./conditions";
-import {ReqType} from "../../../interfaces/types";
+import {IMethod, ReqType} from "../../../interfaces/types";
 import {IReservationConditionList} from "../../../interfaces/reservation";
 import {Froms} from "./froms";
 
-export const Query = (conditions: IProfileConditionList[] | IReservationConditionList[], fields: any, reqType: ReqType, method: "insert" | "query" | "update" = 'query', from: string = null) => {
+export const Query = (conditions: IProfileConditionList[] | IReservationConditionList[] | null, fields: any, reqType: ReqType, method: IMethod = 'query', from: string | null = null) => {
 
     return {
         [method]: {

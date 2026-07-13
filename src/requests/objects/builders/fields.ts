@@ -14,7 +14,11 @@ export const Fields = (fields: any) => {
     } else {
         for (const key of Object.keys(fields)) {
             const field = Field(key, fields[key]);
-            Array.isArray(field) ? object = object.concat(...field) : object.push(field);
+            if (Array.isArray(field)) {
+                object = object.concat(...field);
+            } else {
+                object.push(field);
+            }
         }
     }
 

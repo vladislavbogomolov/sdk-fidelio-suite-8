@@ -1,5 +1,3 @@
-import {IPackage} from "./package";
-
 export interface IFieldsRequestChildrenCategories {
     ChildrenCategoriesCode: string | number,
     ChildrenCategoriesName: string | number,

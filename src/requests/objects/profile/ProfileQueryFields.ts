@@ -1,4 +1,4 @@
-import {IProfileFields, IProfileUpdateFields} from "../../../interfaces/profile";
+import {IProfileFields} from "../../../interfaces/profile";
 
 
 export const profileFields: IProfileFields[] = [

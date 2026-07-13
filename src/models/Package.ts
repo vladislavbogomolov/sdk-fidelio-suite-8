@@ -1,17 +1,15 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
-import {IPackageCode, IPackageCondition, IPackageConditionFields, IPackageFields} from "../interfaces/package";
+import {IPackageCode, IPackageCondition, IPackageFields} from "../interfaces/package";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
-import {IOperation} from "../interfaces/types";
 import {ReservationCondition} from "../requests/objects/reservation/ReservationCondition";
 import {Reservation} from "./Reservation";
 
 export class Package extends FidelioRequest {
-    private fields: IPackageFields[];
+    private fields: IPackageFields[] | null = null;
     private dataOrigin: any
     private conditions: PackageCondition = new PackageCondition()
 
-
-    async get(fields: IPackageFields[] = null) {
+    async get(fields: IPackageFields[] | null = null) {
         this.fields = fields
         const response = await this.addPackageRequest(this.conditions, this.fields).send()
         this.dataOrigin = response.data
@@ -33,7 +31,6 @@ export class Package extends FidelioRequest {
 
     async addPackageToReservation(GuestNum: number, PackageCode: IPackageCode) {
         const conditions = new ReservationCondition().add("GuestNum", GuestNum)
-        // const responseUpdate = await this.addReservationUpdateRequest(conditions, newData).send()
         const reservation = new Reservation({'GuestNum': GuestNum}).setConnection(this.connection);
         await reservation.addReservationUpdateRequest(conditions, {
             'PackageCode': [PackageCode]

@@ -1,12 +1,12 @@
 import {FidelioRequest} from "../requests/FidelioRequest";
 import {IFieldsRequestChildrenCategories, IFieldsResponseChildrenCategories} from "../interfaces/ChildrenCategories";
 
-export class ChildrenCategories extends FidelioRequest{
+export class ChildrenCategories extends FidelioRequest {
     private dataOrigin: any
 
-    async get(fields: IFieldsRequestChildrenCategories[] = null) {
+    async get(fields: IFieldsRequestChildrenCategories[] | null = null) {
         const response = await this.addChildrenCategoriesRequest(null, fields = null).send()
-        response.data.map( (row: IFieldsRequestChildrenCategories) => {
+        response.data.map((row: IFieldsRequestChildrenCategories) => {
             row.ChildrenCategoriesFromAge = Number(row.ChildrenCategoriesFromAge)
             row.ChildrenCategoriesToAge = Number(row.ChildrenCategoriesToAge)
             return row;

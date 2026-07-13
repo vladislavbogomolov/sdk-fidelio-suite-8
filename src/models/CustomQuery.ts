@@ -4,16 +4,12 @@ import {IOperation} from "../interfaces/types";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 
 export class CustomQuery extends FidelioRequest {
-    private from: string;
-    private fields: string[];
     private dataOrigin: any
 
     #conditions: PackageCondition = new PackageCondition()
 
     async get(from: string, fields: string[]) {
-        this.fields = fields
-        this.from = from
-        const response = await this.addCustomQueryRequest(this.#conditions, this.from, this.fields).send()
+        const response = await this.addCustomQueryRequest(this.#conditions, from, fields).send()
         this.dataOrigin = response.data
         return this;
     }

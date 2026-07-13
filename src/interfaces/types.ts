@@ -1,5 +1,3 @@
-import {RateList} from "../requests/objects/RateList";
-
 export type ProfileType = 1 | 2 | 3
 export type ProfileCategory = 1 | 2 | 3 | 4 | 5 | 6
 export type ProfileID = number

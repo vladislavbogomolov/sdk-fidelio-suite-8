@@ -5,7 +5,6 @@ import {parseResponse} from "../../responses";
 import {fidelioDebug} from "../../helpers/helpers";
 
 export const axiosApiInstance = axios.create({
-    // baseURL: process.env.FIDELIO_ENDPOINT,
     headers: {
         "V8-supported": "Zip/Msg",
         "content-type": "V8/ZIP",
@@ -15,8 +14,6 @@ export const axiosApiInstance = axios.create({
         'Expires': '0',
     }
 })
-
-
 
 axiosApiInstance.interceptors.request.use(
     async (req: InternalAxiosRequestConfig) => {
@@ -39,13 +36,14 @@ axiosApiInstance.interceptors.response.use(
             fidelioDebug('received')
             const buff = Buffer.from(res.data, 'base64');
             const zip = new JSZip();
-            const r = await zip.loadAsync(buff)
-            res.data = await r.file('MSG').async('string');
-            fidelioDebug(await r.file('MSG').async('string'))
+            const unzipped = await zip.loadAsync(buff)
+            const msg = await unzipped.file('MSG')!.async('string');
+            res.data = msg;
+            fidelioDebug(msg)
             fidelioDebug('parsing...')
             try {
                 res.data = await parseResponse(res)
-            }catch (e) {
+            } catch (e) {
                 return Promise.reject(e)
             }
 
@@ -59,5 +57,3 @@ axiosApiInstance.interceptors.response.use(
         return Promise.reject(err);
     }
 );
-
-

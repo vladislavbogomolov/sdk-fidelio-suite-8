@@ -8,15 +8,14 @@ import {profileUpdateFields} from "../requests/objects/profile/ProfileQueryField
 import {ProfileCondition} from "../requests/objects/profile/ProfileCondition";
 import {Fidelio} from "../Fidelio";
 
-
 export class Profile extends FidelioRequest {
 
     #attributes: IProfile = {} as IProfile; // Data Fidelio
-    readonly #original: IProfile = null; // Data Fidelio
+    readonly #original: IProfile | null = null; // Data Fidelio
     #conditions: PackageCondition = new PackageCondition()
     readonly #privateKey = 'ProfileID'
 
-    constructor(profile: IProfile = null) {
+    constructor(profile: IProfile | null = null) {
         super();
         if (profile) {
             const str = JSON.stringify(profile)
@@ -24,7 +23,6 @@ export class Profile extends FidelioRequest {
             this.#attributes = JSON.parse(str);
         }
     }
-
 
     /**
      * JSON.stringify get #attributes property by default
@@ -41,7 +39,6 @@ export class Profile extends FidelioRequest {
     get data(): IProfile {
         return this.#attributes
     }
-
 
     /**
      * Setter
@@ -72,13 +69,12 @@ export class Profile extends FidelioRequest {
         return newClass
     }
 
-
     /**
      * Send a request for getting a query
      */
 
-    async get(selectFields: IProfileFields[] = null): Promise<Profile[]> {
-        const res = await this.addProfileQueryRequest(this.#conditions, selectFields).send();
+    async get(selectFields: IProfileFields[] | null = null): Promise<Profile[]> {
+        const res = await this.addProfileQueryRequest(this.#conditions as unknown as ProfileCondition, selectFields).send();
         const classes: Profile[] = []
 
         if (!res.data) return [];
@@ -92,46 +88,39 @@ export class Profile extends FidelioRequest {
         return classes
     }
 
-
     /**
      * Delete current object or by ProfileID
      * @param ProfileID
      * @param options
      */
 
-    async delete(ProfileID: number = null, options: IDeleteReservationOption = null) {
-        return new FidelioRequest().addReservationDelete(ProfileID ?? this.#original[this.#privateKey], options = null).send();
+    async delete(ProfileID: number | null = null, options: IDeleteReservationOption | null = null) {
+        return new FidelioRequest().addReservationDelete(ProfileID ?? (this.#original![this.#privateKey] as number), options = null).send();
     }
-
 
     /**
      * Update or create profile
      */
 
     async save(): Promise<Profile> {
-        const fidelioRequest = new FidelioRequest();
         if (this.#attributes[this.#privateKey]) {
             const newData = {} as IProfileUpdateFields;
-            for (const key in this.#attributes) {
-                // @ts-ignore
-                if (profileUpdateFields.includes(key) && (!this.#original || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
-                    // @ts-ignore
-                    newData[key] = this.#attributes[key]
+            for (const key of Object.keys(this.#attributes) as (keyof IProfile)[]) {
+                if ((profileUpdateFields as readonly string[]).includes(key)
+                    && (!this.#original || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
+                    (newData as any)[key] = this.#attributes[key]
                 }
             }
 
-            // console.log('newData')
-            // console.log(newData)
-
             // Nothing to update
-            if (Object.keys(newData).length === 0) return this.find(this.#attributes[this.#privateKey])
+            if (Object.keys(newData).length === 0) return this.find(this.#attributes[this.#privateKey] as number)
 
-            await this.addProfileUpdateRequest(new PackageCondition().add(this.#privateKey, this.#attributes[this.#privateKey]), newData).send()
+            await this.addProfileUpdateRequest(new PackageCondition().add(this.#privateKey, this.#attributes[this.#privateKey]) as unknown as ProfileCondition, newData).send()
 
-            return this.find(this.#attributes[this.#privateKey])
+            return this.find(this.#attributes[this.#privateKey] as number)
         } else {
             // create
-            console.log('gg')
+            return undefined as unknown as Profile;
         }
     }
 
@@ -153,28 +142,8 @@ export class Profile extends FidelioRequest {
         return this
     }
 
-    #hydrate(profile: IProfile): IProfile {
-        profile = JSON.parse(JSON.stringify(profile));
-        /*if (profile.Notes) {
-          const notes = JSON.parse(JSON.stringify(profile.Notes))
-          profile.Notes = [];
-
-          notes.forEach((note: INote) => {
-            note.subject = "Profile";
-            const noteClass: Note = new Note(note);
-            noteClass.where(this.#privateKey, profile[this.#privateKey])
-            profile.Notes.push(noteClass)
-          })
-        } else {
-          profile.Notes = [];
-        }*/
-
-        return profile
-    }
-
-
     /**
-     * Add note to reservation
+     * Add note to profile
      * @param note
      */
 
@@ -186,46 +155,30 @@ export class Profile extends FidelioRequest {
         return this;
     }
 
-
     /**
-     * Remove note from reservation
+     * Remove note from profile
      * @param noteID
      */
 
     deleteNote(noteID: number | number[] | 'ALL'): Profile {
-        if (Number.isFinite(noteID)) {
-            this.#attributes.Notes.filter(note => Number(note.noteID) === noteID).map((note) => {
+        if (typeof noteID === 'number') {
+            this.#attributes.Notes!.filter(note => Number(note.noteID) === noteID).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
-                return note
             })
         } else if (Array.isArray(noteID)) {
-            this.#attributes.Notes.filter(note => noteID.includes(Number(note.noteID))).map((note) => {
+            this.#attributes.Notes!.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
-                return note
             })
         } else if (noteID === 'ALL') {
-            this.#attributes.Notes.map((note) => {
+            this.#attributes.Notes!.forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
-                return note
             })
         }
 
         return this
     }
-
-
-    // TODO Communications
-
-    /*addAddress() {}
-    updateAddress() {}
-    removeAddress() {}
-
-    addPersonalDocument() {}
-    updatePersonalDocument() {}
-    removePersonalDocument() {}*/
-
 
 }

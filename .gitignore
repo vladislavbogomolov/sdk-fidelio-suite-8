@@ -117,3 +117,6 @@ dist
 .pnp.*
 
 .idea
+
+# Local dev scratchpad (may contain live credentials — never commit)
+playground.ts
