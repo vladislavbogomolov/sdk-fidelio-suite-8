@@ -44,11 +44,12 @@ export class Posting extends FidelioRequest {
 
     /**
      * @param PostingID
+     * @param fields optional subset of fields to fetch (smaller payload)
      */
 
-    async find(PostingID: number): Promise<Posting> {
+    async find(PostingID: number, fields: IPostingFields[] | null = null): Promise<Posting> {
         const condition = new Condition<IPostingConditionFields>().add(this.#privateKey, PostingID);
-        const postings = await this.addPostingQueryRequest(condition.conditions).send();
+        const postings = await this.addPostingQueryRequest(condition.conditions, fields).send();
         const posting = postings.data[0] ?? postings.data
         const newClass = new Posting(posting).setConnection(this.connection)
         newClass.where(this.#privateKey, posting[this.#privateKey])

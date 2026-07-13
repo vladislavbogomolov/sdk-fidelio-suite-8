@@ -57,4 +57,4 @@ export type {
 } from "./interfaces/ChildrenCategories";
 export type {IRateListFields, IRateListConditionFields} from "./interfaces/RateList";
 export type {IDeleteReservationOption} from "./interfaces/commands";
-export type {INote, IOperation, IOperators, IDataType, IMethod, ReqType} from "./interfaces/types";
+export type {INote, IOperation, IOperators, IDataType, IMethod, ISaveOptions, ReqType} from "./interfaces/types";

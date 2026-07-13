@@ -67,6 +67,15 @@ export abstract class FidelioRecord<T extends {Notes?: any[]}> extends FidelioRe
     }
 
     /**
+     * Mark the current working copy as the server snapshot, so the next
+     * save() diffs against it (used after a write without refetch).
+     */
+
+    protected syncOriginal() {
+        this._original = JSON.parse(JSON.stringify(this._attributes));
+    }
+
+    /**
      * Add note
      * @param note
      */

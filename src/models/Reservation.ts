@@ -9,7 +9,7 @@ import {
 import {reservationUpdateFields} from "../requests/objects/reservation/ReservationQueryFields";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservationConditionFields";
-import {IOperation} from "../interfaces/types";
+import {IOperation, ISaveOptions} from "../interfaces/types";
 import {IDeleteReservationOption} from "../interfaces/commands";
 import {IPackageCode} from "../interfaces/package";
 
@@ -21,12 +21,13 @@ export class Reservation extends FidelioRecord<IReservation> {
     /**
      * Get Reservation by GuestNum
      * @param GuestNum
+     * @param fields optional subset of fields to fetch (smaller payload)
      */
 
-    async find(GuestNum: number): Promise<Reservation> {
+    async find(GuestNum: number, fields: IReservationFields[] | null = null): Promise<Reservation> {
         this._requestObject = [];
         const condition = new ReservationCondition().add("GuestNum", GuestNum);
-        const reservations = await this.addReservationQueryRequest(condition).send();
+        const reservations = await this.addReservationQueryRequest(condition, fields).send();
         const newClass = new Reservation(reservations.data[0]).setConnection(this.connection)
         newClass.where(this.#privateKey, reservations.data[0].GuestNum)
         return newClass
@@ -56,7 +57,7 @@ export class Reservation extends FidelioRecord<IReservation> {
      * Update or create reservation
      */
 
-    async save(): Promise<Reservation> {
+    async save(options: ISaveOptions = {}): Promise<Reservation> {
 
         if (this._attributes.GuestNum || this.#conditions.conditions.length) {
 
@@ -69,20 +70,36 @@ export class Reservation extends FidelioRecord<IReservation> {
             const newData = this.changedFields<IReservationUpdate>(reservationUpdateFields);
 
             // Nothing to update
-            if (Object.keys(newData).length === 0) return this.find(this._attributes.GuestNum as number)
+            if (Object.keys(newData).length === 0) {
+                if (options.refetch === false) return this;
+                return this.find(this._attributes.GuestNum as number)
+            }
 
             await this.addReservationUpdateRequest(conditions, newData).send()
+
+            if (options.refetch === false) {
+                this.syncOriginal();
+                return this;
+            }
 
             return this.find(GuestNum)
         } else {
             const responseUpdate = await this.addReservationInsertRequest(this._attributes as IReservationInsert).send()
+            if (options.refetch === false) return this.#fromInsertResponse(responseUpdate.data);
             return this.find(responseUpdate.data.GuestNum)
         }
     }
 
-    async create(reservation: IReservationInsert) {
+    async create(reservation: IReservationInsert, options: ISaveOptions = {}) {
         const responseUpdate = await this.addReservationInsertRequest(reservation).send();
+        if (options.refetch === false) return this.#fromInsertResponse(responseUpdate.data);
         return this.find(responseUpdate.data.GuestNum)
+    }
+
+    #fromInsertResponse(data: any): Reservation {
+        const created = new Reservation(data ?? {}).setConnection(this.connection);
+        if (data?.GuestNum) created.where(this.#privateKey, data.GuestNum);
+        return created;
     }
 
     /**

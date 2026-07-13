@@ -168,6 +168,16 @@ export type Hints = any
 export type Guest3rdPartyType = any
 
 
+export type ISaveOptions = {
+    /**
+     * Refetch the record after the write (default true). When false the
+     * SDK saves a round trip: updates return the same instance with the
+     * local state marked as synced, inserts return an instance hydrated
+     * only from the insert response (which may contain fewer fields).
+     */
+    refetch?: boolean
+}
+
 export type IOperation = "eq" | "neq" | "like" | "le" | "lt" | "ge" | "gt"
 export type IOperators = "AND" | "OR" | "NOT"
 export type ReqType = "Profile" | "Reservation" | "ProfileAndReservation" | "Package" | "Posting" | "FunctionSpaceAvailability" | "BonusPoint" | "BillingInstruction" | "ConferenceBooking" | "CustomQuery" | "ChildrenCategories" | "RateList"
