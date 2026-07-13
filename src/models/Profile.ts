@@ -159,18 +159,21 @@ export class Profile extends FidelioRequest {
      */
 
     deleteNote(noteID: number | number[] | 'ALL'): Profile {
+        const notes = this.#attributes.Notes;
+        if (!notes) return this;
+
         if (typeof noteID === 'number') {
-            this.#attributes.Notes!.filter(note => Number(note.noteID) === noteID).forEach((note) => {
+            notes.filter(note => Number(note.noteID) === noteID).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })
         } else if (Array.isArray(noteID)) {
-            this.#attributes.Notes!.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
+            notes.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })
         } else if (noteID === 'ALL') {
-            this.#attributes.Notes!.forEach((note) => {
+            notes.forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })

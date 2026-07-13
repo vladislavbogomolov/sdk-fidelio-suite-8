@@ -191,18 +191,21 @@ export class Reservation extends FidelioRequest {
      */
 
     deleteNote(noteID: number | number[] | 'ALL'): Reservation {
+        const notes = this.#attributes.Notes;
+        if (!notes) return this;
+
         if (typeof noteID === 'number') {
-            this.#attributes.Notes!.filter(note => Number(note.noteID) === noteID).forEach((note) => {
+            notes.filter(note => Number(note.noteID) === noteID).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })
         } else if (Array.isArray(noteID)) {
-            this.#attributes.Notes!.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
+            notes.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })
         } else if (noteID === 'ALL') {
-            this.#attributes.Notes!.forEach((note) => {
+            notes.forEach((note) => {
                 note.Delete = 1
                 note.value = JSON.stringify(note.value)
             })
@@ -217,8 +220,10 @@ export class Reservation extends FidelioRequest {
      */
 
     addAccompanyingGuest(ProfileID: number): Reservation {
-        if (!this.#attributes.AccompanyingGuest!.find(guest => guest.value === ProfileID)) {
-            this.#attributes.AccompanyingGuest!.push({
+        if (!this.#attributes.AccompanyingGuest) this.#attributes.AccompanyingGuest = [];
+
+        if (!this.#attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)) {
+            this.#attributes.AccompanyingGuest.push({
                 name: 'AccompanyingGuest',
                 value: ProfileID,
                 action: "to_create"
@@ -234,7 +239,9 @@ export class Reservation extends FidelioRequest {
      */
 
     deleteAccompanyingGuest(ProfileID: number): Reservation {
-        this.#attributes.AccompanyingGuest = this.#attributes.AccompanyingGuest!
+        if (!this.#attributes.AccompanyingGuest) return this;
+
+        this.#attributes.AccompanyingGuest = this.#attributes.AccompanyingGuest
             .filter(guest => !(guest.value === ProfileID && guest.action && guest.action === "to_create"))
 
         const toDelete = this.#attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)
@@ -251,9 +258,10 @@ export class Reservation extends FidelioRequest {
      */
 
     addPackage(packageCode: IPackageCode) {
+        if (!this.#attributes.PackageCode) this.#attributes.PackageCode = [];
 
-        if (!this.#attributes.PackageCode!.find((pack) => pack.attr === packageCode.attr)) {
-            this.#attributes.PackageCode!.push(packageCode)
+        if (!this.#attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)) {
+            this.#attributes.PackageCode.push(packageCode)
         }
 
         return this;
