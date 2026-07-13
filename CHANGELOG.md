@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v2.0.0...v2.0.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* backfill ProfileGlobalID from the insert response in Profile.create() ([9417e8b](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/commit/9417e8b33760c60c9d1b898c73f21d8153355b5a))
+
 # [2.0.0](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v1.0.106...v2.0.0) (2026-07-13)
 
 
