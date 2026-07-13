@@ -231,7 +231,9 @@ export class FidelioRequest {
 
     send = () => {
         try {
-            return axiosApiInstance.post(this.connection.URL, this.getBody());
+            const body = this.getBody();
+            this._requestObject = [];
+            return axiosApiInstance.post(this.connection.URL, body);
         } catch (e) {
             return Promise.reject(e)
         }

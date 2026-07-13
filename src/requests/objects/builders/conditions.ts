@@ -25,8 +25,9 @@ interface ILinkObject {
 
 export const Conditions = (conditions: any): IConditions | any => {
     if (!conditions || conditions.length === 0) return null;
-    const firstCondition = conditions.reverse().shift();
-    const conditionsObject = conditions.reduce((previousValue: ILinkObject, currentValue: any) => {
+    const reversed = [...conditions].reverse();
+    const firstCondition = reversed.shift();
+    const conditionsObject = reversed.reduce((previousValue: ILinkObject, currentValue: any) => {
         const obj: ILinkObject = createConditionLinkObject(currentValue);
         obj.link.condition.link = previousValue.link;
         return obj
