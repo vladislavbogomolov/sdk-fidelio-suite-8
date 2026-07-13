@@ -78,7 +78,15 @@ export class Profile extends FidelioRecord<IProfile> {
 
     async create(profile: IProfileInsertFields) {
         const responseUpdate = await this.addProfileCreateRequest(profile).send();
-        return this.find(responseUpdate.data.ProfileID)
+        const fetched = await this.find(responseUpdate.data.ProfileID);
+        // With TryToGlobalize the GlobalID is assigned synchronously in the
+        // insert response, while the property profile is filled in later by
+        // Central-sync — the re-find can race it and read 0. Backfill from
+        // the insert response so callers never observe a missing GlobalID.
+        if (responseUpdate.data.ProfileGlobalID && !fetched.data.ProfileGlobalID) {
+            fetched.set({ProfileGlobalID: responseUpdate.data.ProfileGlobalID});
+        }
+        return fetched;
     }
 
     /**

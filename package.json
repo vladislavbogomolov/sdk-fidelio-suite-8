@@ -20,6 +20,7 @@
     "test": "TZ=UTC jest --runInBand",
     "test:watch": "TZ=UTC jest --watchAll --runInBand --logHeapUsage",
     "test:golden": "TZ=UTC jest test/golden",
+    "test:offline": "TZ=UTC jest test/golden test/unit",
     "golden:update": "TZ=UTC ts-node -P tsconfig.test.json test/golden/helpers/update-golden.ts",
     "start": "nodemon playground.ts",
     "prepublishOnly": "npm run build",

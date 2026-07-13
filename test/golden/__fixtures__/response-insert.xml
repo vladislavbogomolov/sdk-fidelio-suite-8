@@ -4,6 +4,8 @@
     <insertResponse Name="Reservation">
       <rows>
         <GuestNum>239191</GuestNum>
+        <ProfileID>1263535</ProfileID>
+        <ProfileGlobalID>10132298</ProfileGlobalID>
         <RoomType>DBL</RoomType>
         <GuestArrival>01.06.2023</GuestArrival>
       </rows>
