@@ -120,3 +120,6 @@ dist
 
 # Local dev scratchpad (may contain live credentials — never commit)
 playground.ts
+
+# Proprietary vendor documentation (Oracle Suite 8 spec) — repo is public, keep local
+docs/
