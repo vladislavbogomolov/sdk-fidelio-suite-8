@@ -1,6 +1,12 @@
-export class NotFoundError extends Error {
-    constructor(message: any) {
-        super(message); // (1)
-        this.name = 'NotFoundError'; // (2)
+/**
+ * Error thrown when the Fidelio interface answers with a non-OK status.
+ */
+export class FidelioError extends Error {
+    readonly status: string;
+
+    constructor(status: string, message: string) {
+        super(message);
+        this.name = 'FidelioError';
+        this.status = status;
     }
 }

@@ -1,6 +1,7 @@
 import {AxiosResponse} from "axios";
 import xml2js from 'xml2js'
 import {IFidelioResponse, QueryResponse} from "../interfaces/response";
+import {FidelioError} from "../errors";
 import dayjs from 'dayjs';
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
@@ -240,10 +241,10 @@ export const parseResponse = async (response: AxiosResponse) => {
     return xml2js.parseStringPromise(response.data).then((result: IFidelioResponse) => {
 
         if (result.fidelio.response[0].$.Status !== 'OK') {
-            throw {
-                status: result.fidelio.response[0].$.Status,
-                message: (result.fidelio.response[0].$.Message ?? '').replace(/(\r\n|\n|\r)/gm, " ").trim(),
-            }
+            throw new FidelioError(
+                result.fidelio.response[0].$.Status,
+                (result.fidelio.response[0].$.Message ?? '').replace(/(\r\n|\n|\r)/gm, " ").trim(),
+            )
         }
 
         let requestsResponses: any = [];

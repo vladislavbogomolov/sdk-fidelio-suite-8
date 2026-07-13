@@ -9,10 +9,9 @@ import {
 import {reservationUpdateFields} from "../requests/objects/reservation/ReservationQueryFields";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IReservationConditionFieldsX} from "../interfaces/reservation/IReservationConditionFields";
-import {INote, IOperation} from "../interfaces/types";
-import {IDeleteReservationOption} from "../interfaces/commamds";
+import {IOperation} from "../interfaces/types";
+import {IDeleteReservationOption} from "../interfaces/commands";
 import {IPackageCode} from "../interfaces/package";
-import {Note} from "./Note";
 
 export class Reservation extends FidelioRecord<IReservation> {
 
@@ -107,20 +106,6 @@ export class Reservation extends FidelioRecord<IReservation> {
     where<T extends keyof IReservationConditionFieldsX, K extends IReservationConditionFieldsX>(name: T, value: K[T], operation: IOperation = 'eq'): Reservation {
         this.#conditions.addAnd(name, value, operation)
         if (name === this.#privateKey) this.set({GuestNum: Number(value)})
-
-        return this
-    }
-
-    addNote_old(note: INote) {
-        note.subject = "Reservation";
-        const noteClass: Note = new Note(note);
-        if (this._attributes.GuestNum) {
-            noteClass.where("GuestNum", this._attributes.GuestNum)
-        }
-        if (!this._attributes.Notes) {
-            this._attributes.Notes = [];
-        }
-        this._attributes.Notes.push(noteClass)
 
         return this
     }

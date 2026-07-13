@@ -1,24 +1,14 @@
 export type IConnection = {
-    IS_MASTER: boolean;
-    USER_AGENT: string;
-    FIDELIO_VERSION: string;
+    /** Full DataHandler URL, including the ?ic= hotel code suffix */
+    URL: string;
     FIDELIO_USERNAME: string;
-    DEBUG_ENABLED: boolean;
-    FIDELIO_VENDOR: string;
     FIDELIO_PASSWORD: string;
-    CODE: string;
-    URL: string
+    FIDELIO_VENDOR: string;
+    /** XML interface version; defaults to 1.1.0 */
+    FIDELIO_VERSION?: string;
+    USER_AGENT?: string;
+    DEBUG_ENABLED?: boolean;
+    IS_MASTER?: boolean;
+    /** Hotel code (informational) */
+    CODE?: string;
 }
-export const Connections: IConnection[] = [
-    {
-        URL: "",
-        CODE: "",
-        FIDELIO_VERSION: "1.1.0",
-        FIDELIO_VENDOR: "sdk-fidelio-suite",
-        FIDELIO_USERNAME: "",
-        FIDELIO_PASSWORD: "",
-        USER_AGENT: "FidelioNodeService",
-        DEBUG_ENABLED: false,
-        IS_MASTER: true
-    }
-]

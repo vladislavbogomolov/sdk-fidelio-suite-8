@@ -1,13 +1,4 @@
-import {IFieldsRequestAvailabilityForWeb} from "./availability";
 import {IDataType, IOperation} from "./types";
-import {IProfileConditionFields} from "./profile";
-
-/*export interface IFidelioRequest {
-    [index: number]: IFieldsRequestAvailabilityForWeb
-}*/
-
-export type IFidelioRequest = IFieldsRequestAvailabilityForWeb
-
 
 export interface IFieldAttributes {
     name: string;
@@ -19,12 +10,10 @@ export interface IFieldSimple {
     _: string | number;
 }
 
-
-
 export interface IConditionObjectAttributes {
-    name: IProfileConditionFields;
+    name: string;
     operation: IOperation;
-    dataType: IDataType
+    dataType?: IDataType
 }
 
 export interface IConditionObject {

@@ -2,7 +2,7 @@ import {FidelioRecord} from "./FidelioRecord";
 import {FidelioRequest} from "../requests/FidelioRequest";
 import {PackageCondition} from "../requests/objects/package/PackageCondition";
 import {IOperation} from "../interfaces/types";
-import {IDeleteReservationOption} from "../interfaces/commamds";
+import {IDeleteReservationOption} from "../interfaces/commands";
 import {IProfile, IProfileFields, IProfileInsertFields} from "../interfaces/profile/IProfileFields";
 import {IProfileConditionFields, IProfileUpdateFields} from "../interfaces/profile";
 import {profileUpdateFields} from "../requests/objects/profile/ProfileQueryFields";

@@ -11,7 +11,7 @@ import {PackageFields} from "./objects/package/PackageFields";
 import {IPackageFields} from "../interfaces/package";
 import {IMethod, ReqType} from "../interfaces/types";
 import {createPosting, deleteReservation} from "./objects/commands/commands";
-import {IDeleteReservationOption} from "../interfaces/commamds";
+import {IDeleteReservationOption} from "../interfaces/commands";
 import xml2js from "xml2js";
 import {IConnection} from "../config/connections";
 import {ChildrenCategoriesFields} from "./objects/ChildrenCategories";

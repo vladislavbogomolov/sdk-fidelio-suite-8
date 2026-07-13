@@ -1,4 +1,4 @@
-import {IDeleteReservationOption} from "../../../interfaces/commamds";
+import {IDeleteReservationOption} from "../../../interfaces/commands";
 import {IPostingInsertFields} from "../../../interfaces/posting";
 
 
