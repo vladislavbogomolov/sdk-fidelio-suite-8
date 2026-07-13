@@ -1,4 +1,4 @@
-import {FidelioRequest} from "../requests/FidelioRequest";
+import {FidelioRecord} from "./FidelioRecord";
 import {ReservationCondition} from "../requests/objects/reservation/ReservationCondition";
 import {
     IReservation,
@@ -14,51 +14,10 @@ import {IDeleteReservationOption} from "../interfaces/commamds";
 import {IPackageCode} from "../interfaces/package";
 import {Note} from "./Note";
 
-export class Reservation extends FidelioRequest {
+export class Reservation extends FidelioRecord<IReservation> {
 
-    #attributes: IReservation = {} as IReservation; // Data Fidelio
-    readonly #original: IReservation | null = null; // Data Fidelio
     #conditions: PackageCondition = new PackageCondition()
     readonly #privateKey = 'GuestNum'
-
-    constructor(reservation: IReservation | null = null) {
-        super();
-        if (reservation) {
-            const str = JSON.stringify(reservation);
-            this.#original = JSON.parse(str);
-            this.#attributes = JSON.parse(str);
-        }
-    }
-
-    /**
-     * JSON.stringify get #attributes property by default
-     */
-
-    toJSON() {
-        return this.#attributes
-    }
-
-    /**
-     * Getter
-     */
-
-    get data(): IReservation {
-        return this.#attributes
-    }
-
-    /**
-     * Setter
-     * @param attributes
-     */
-
-    set attributes(attributes: IReservation) {
-        this.#attributes = Object.assign({}, attributes);
-    }
-
-    set(attributes: IReservation) {
-        this.#attributes = Object.assign(this.#attributes, attributes);
-        return this;
-    }
 
     /**
      * Get Reservation by GuestNum
@@ -100,30 +59,24 @@ export class Reservation extends FidelioRequest {
 
     async save(): Promise<Reservation> {
 
-        if (this.#attributes.GuestNum || this.#conditions.conditions.length) {
+        if (this._attributes.GuestNum || this.#conditions.conditions.length) {
 
-            const conditions = this.#attributes.GuestNum
-                ? new ReservationCondition().add("GuestNum", this.#attributes.GuestNum)
+            const conditions = this._attributes.GuestNum
+                ? new ReservationCondition().add("GuestNum", this._attributes.GuestNum)
                 : this.#conditions;
 
             const GuestNum = conditions.conditions[0].value as number;
 
-            const newData = {} as IReservationUpdate;
-            for (const key of Object.keys(this.#attributes) as (keyof IReservation)[]) {
-                if ((reservationUpdateFields as readonly string[]).includes(key)
-                    && (!this.#original || JSON.stringify(this.#attributes[key]) !== JSON.stringify(this.#original[key]))) {
-                    (newData as any)[key] = this.#attributes[key]
-                }
-            }
+            const newData = this.changedFields<IReservationUpdate>(reservationUpdateFields);
 
             // Nothing to update
-            if (Object.keys(newData).length === 0) return this.find(this.#attributes.GuestNum as number)
+            if (Object.keys(newData).length === 0) return this.find(this._attributes.GuestNum as number)
 
             await this.addReservationUpdateRequest(conditions, newData).send()
 
             return this.find(GuestNum)
         } else {
-            const responseUpdate = await this.addReservationInsertRequest(this.#attributes as IReservationInsert).send()
+            const responseUpdate = await this.addReservationInsertRequest(this._attributes as IReservationInsert).send()
             return this.find(responseUpdate.data.GuestNum)
         }
     }
@@ -140,7 +93,7 @@ export class Reservation extends FidelioRequest {
      */
 
     async delete(GuestNum: number | null = null, options: IDeleteReservationOption | null = null) {
-        const response = await this.addReservationDelete(GuestNum ?? this.#original!.GuestNum!, options).send();
+        const response = await this.addReservationDelete(GuestNum ?? this._original!.GuestNum!, options).send();
         return response.data[0];
     }
 
@@ -158,58 +111,16 @@ export class Reservation extends FidelioRequest {
         return this
     }
 
-    /**
-     * Add note to reservation
-     * @param note
-     */
-
-    addNote(note: INote) {
-        if (!this.#attributes.Notes) {
-            this.#attributes.Notes = [];
-        }
-        this.#attributes.Notes.push(note)
-        return this;
-    }
-
     addNote_old(note: INote) {
         note.subject = "Reservation";
         const noteClass: Note = new Note(note);
-        if (this.#attributes.GuestNum) {
-            noteClass.where("GuestNum", this.#attributes.GuestNum)
+        if (this._attributes.GuestNum) {
+            noteClass.where("GuestNum", this._attributes.GuestNum)
         }
-        if (!this.#attributes.Notes) {
-            this.#attributes.Notes = [];
+        if (!this._attributes.Notes) {
+            this._attributes.Notes = [];
         }
-        this.#attributes.Notes.push(noteClass)
-
-        return this
-    }
-
-    /**
-     * Remove note from reservation
-     * @param noteID
-     */
-
-    deleteNote(noteID: number | number[] | 'ALL'): Reservation {
-        const notes = this.#attributes.Notes;
-        if (!notes) return this;
-
-        if (typeof noteID === 'number') {
-            notes.filter(note => Number(note.noteID) === noteID).forEach((note) => {
-                note.Delete = 1
-                note.value = JSON.stringify(note.value)
-            })
-        } else if (Array.isArray(noteID)) {
-            notes.filter(note => noteID.includes(Number(note.noteID))).forEach((note) => {
-                note.Delete = 1
-                note.value = JSON.stringify(note.value)
-            })
-        } else if (noteID === 'ALL') {
-            notes.forEach((note) => {
-                note.Delete = 1
-                note.value = JSON.stringify(note.value)
-            })
-        }
+        this._attributes.Notes.push(noteClass)
 
         return this
     }
@@ -220,10 +131,10 @@ export class Reservation extends FidelioRequest {
      */
 
     addAccompanyingGuest(ProfileID: number): Reservation {
-        if (!this.#attributes.AccompanyingGuest) this.#attributes.AccompanyingGuest = [];
+        if (!this._attributes.AccompanyingGuest) this._attributes.AccompanyingGuest = [];
 
-        if (!this.#attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)) {
-            this.#attributes.AccompanyingGuest.push({
+        if (!this._attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)) {
+            this._attributes.AccompanyingGuest.push({
                 name: 'AccompanyingGuest',
                 value: ProfileID,
                 action: "to_create"
@@ -239,12 +150,12 @@ export class Reservation extends FidelioRequest {
      */
 
     deleteAccompanyingGuest(ProfileID: number): Reservation {
-        if (!this.#attributes.AccompanyingGuest) return this;
+        if (!this._attributes.AccompanyingGuest) return this;
 
-        this.#attributes.AccompanyingGuest = this.#attributes.AccompanyingGuest
+        this._attributes.AccompanyingGuest = this._attributes.AccompanyingGuest
             .filter(guest => !(guest.value === ProfileID && guest.action && guest.action === "to_create"))
 
-        const toDelete = this.#attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)
+        const toDelete = this._attributes.AccompanyingGuest.find(guest => guest.value === ProfileID)
 
         if (toDelete) {
             toDelete.addData = "DELETE"
@@ -258,10 +169,10 @@ export class Reservation extends FidelioRequest {
      */
 
     addPackage(packageCode: IPackageCode) {
-        if (!this.#attributes.PackageCode) this.#attributes.PackageCode = [];
+        if (!this._attributes.PackageCode) this._attributes.PackageCode = [];
 
-        if (!this.#attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)) {
-            this.#attributes.PackageCode.push(packageCode)
+        if (!this._attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)) {
+            this._attributes.PackageCode.push(packageCode)
         }
 
         return this;
@@ -269,12 +180,12 @@ export class Reservation extends FidelioRequest {
 
     removePackage(packageCode: IPackageCode) {
 
-        if (!this.#attributes.PackageCode) this.#attributes.PackageCode = [];
+        if (!this._attributes.PackageCode) this._attributes.PackageCode = [];
 
         packageCode.addData = "DELETE"
-        const attachedPackage = this.#attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)
+        const attachedPackage = this._attributes.PackageCode.find((pack) => pack.attr === packageCode.attr)
         if (!attachedPackage) {
-            this.#attributes.PackageCode.push(packageCode)
+            this._attributes.PackageCode.push(packageCode)
         } else {
             attachedPackage.addData = "DELETE"
         }
