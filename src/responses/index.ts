@@ -123,7 +123,7 @@ context.PersonalDocument = (...input: any[]): any => {
     input[0].$.attr = Number(input[0].$.attr)
     input[0].$.CountryID = Number(input[0].$.CountryID)
     input[0].$.NationalityID = Number(input[0].$.NationalityID)
-    input[0].$.IssuerCountryID = Number(input[0].$.NationalityID)
+    input[0].$.IssuerCountryID = Number(input[0].$.IssuerCountryID)
     input[0].$.IssuerStateID = Number(input[0].$.IssuerStateID)
     input[0].$.BornInID = Number(input[0].$.BornInID)
     input[0].$.BornStateID = Number(input[0].$.BornStateID)
