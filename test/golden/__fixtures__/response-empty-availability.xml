@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<fidelio Version="1.1.0">
+  <response ID="1" Status="OK">
+    <queryResponse Name="AvailabilityForWeb">
+      <rows></rows>
+    </queryResponse>
+  </response>
+</fidelio>

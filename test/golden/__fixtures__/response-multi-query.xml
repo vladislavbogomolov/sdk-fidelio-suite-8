@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<fidelio Version="1.1.0">
+  <response ID="1" Status="OK">
+    <queryResponse Name="Reservation">
+      <rows>
+        <row>
+          <fields>
+            <field name="GuestNum">1</field>
+            <field name="GuestName">First</field>
+          </fields>
+        </row>
+        <row>
+          <fields>
+            <field name="GuestNum">2</field>
+            <field name="GuestName">Second</field>
+          </fields>
+        </row>
+      </rows>
+    </queryResponse>
+    <queryResponse Name="Profile">
+      <rows>
+        <row>
+          <fields>
+            <field name="ProfileID">42</field>
+            <field name="GuestName">Third</field>
+          </fields>
+        </row>
+      </rows>
+    </queryResponse>
+  </response>
+</fidelio>

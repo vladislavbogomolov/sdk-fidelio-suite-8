@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fidelio Version="1.1.0">
+  <request UserName="USER" Password="PASS" Vendor="VENDOR">
+    <query ReqType="Reservation" Name="Reservation">
+      <conditions>
+        <condition name="GuestNum" operation="eq">239190</condition>
+      </conditions>
+      <fields>
+        <field name="GuestFirstname"/>
+        <field name="GuestName"/>
+        <field name="ProfileID"/>
+        <field name="Name2"/>
+        <field name="GuestNum"/>
+        <field name="RoomType"/>
+        <field name="ReservationState"/>
+        <field name="ReservationStatus"/>
+        <field name="ReservationComment1"/>
+        <field name="ReservationComment2"/>
+        <field name="RoomNum"/>
+        <field name="GuestArrival"/>
+        <field name="GuestDeparture"/>
+        <field name="CheckinDateTime"/>
+        <field name="CheckoutDateTime"/>
+        <field name="ReservationType"/>
+        <field name="NoAvailReason"/>
+        <field name="PaymentMethod"/>
+        <field name="CrsSystem"/>
+        <field name="CrsResNumber"/>
+        <field name="NoOfRooms"/>
+        <field name="NoOfAdults"/>
+        <field name="RateCode"/>
+        <field name="RateValue"/>
+        <field name="ForeignRateValue"/>
+        <field name="ForeignTotalStay"/>
+        <field name="CurrencyCode"/>
+        <field name="MarketCode"/>
+        <field name="CompanyID"/>
+        <field name="TotalStay"/>
+        <field name="TravelAgentID"/>
+        <field name="SourceID"/>
+        <field name="BookerID"/>
+        <field name="BookerGlobalID"/>
+        <field name="CompanyName"/>
+        <field name="Share"/>
+        <field name="SourceName"/>
+        <field name="SourceCode"/>
+        <field name="TravelAgentName"/>
+        <field name="BookerName"/>
+        <field name="HasShare"/>
+        <field name="Child"/>
+        <field name="ChannelCode"/>
+        <field name="Guarantee"/>
+        <field name="GroupID"/>
+        <field name="GroupName"/>
+        <field name="BedReservation"/>
+        <field name="BlockCode"/>
+        <field name="NetRoomRevenue"/>
+        <field name="PartyID"/>
+        <field name="PartyName"/>
+        <field name="PartyMember"/>
+        <field name="PartyReservation"/>
+        <field name="ResStatusPriorCXL"/>
+        <field name="OptionDate"/>
+        <field name="Policy"/>
+        <field name="Hints"/>
+        <field name="LastUpdateTime"/>
+        <field name="CreationTime"/>
+        <field name="PackageCode"/>
+        <field name="Package"/>
+        <field name="NotesList"/>
+        <field name="Notes"/>
+      </fields>
+    </query>
+    <query ReqType="Reservation" Name="Reservation">
+      <conditions>
+        <condition name="GuestArrival" operation="ge">01.06.2023</condition>
+        <link operator="OR">
+          <condition>
+            <condition name="RoomType" operation="eq">DBL</condition>
+            <link operator="NOT">
+              <condition>
+                <condition name="RoomNum" operation="eq">101</condition>
+                <link operator="AND">
+                  <condition>
+                    <condition name="ReservationState" operation="neq">1</condition>
+                  </condition>
+                </link>
+              </condition>
+            </link>
+          </condition>
+        </link>
+      </conditions>
+      <fields>
+        <field name="GuestFirstname"/>
+        <field name="GuestName"/>
+        <field name="ProfileID"/>
+        <field name="Name2"/>
+        <field name="GuestNum"/>
+        <field name="RoomType"/>
+        <field name="ReservationState"/>
+        <field name="ReservationStatus"/>
+        <field name="ReservationComment1"/>
+        <field name="ReservationComment2"/>
+        <field name="RoomNum"/>
+        <field name="GuestArrival"/>
+        <field name="GuestDeparture"/>
+        <field name="CheckinDateTime"/>
+        <field name="CheckoutDateTime"/>
+        <field name="ReservationType"/>
+        <field name="NoAvailReason"/>
+        <field name="PaymentMethod"/>
+        <field name="CrsSystem"/>
+        <field name="CrsResNumber"/>
+        <field name="NoOfRooms"/>
+        <field name="NoOfAdults"/>
+        <field name="RateCode"/>
+        <field name="RateValue"/>
+        <field name="ForeignRateValue"/>
+        <field name="ForeignTotalStay"/>
+        <field name="CurrencyCode"/>
+        <field name="MarketCode"/>
+        <field name="CompanyID"/>
+        <field name="TotalStay"/>
+        <field name="TravelAgentID"/>
+        <field name="SourceID"/>
+        <field name="BookerID"/>
+        <field name="BookerGlobalID"/>
+        <field name="CompanyName"/>
+        <field name="Share"/>
+        <field name="SourceName"/>
+        <field name="SourceCode"/>
+        <field name="TravelAgentName"/>
+        <field name="BookerName"/>
+        <field name="HasShare"/>
+        <field name="Child"/>
+        <field name="ChannelCode"/>
+        <field name="Guarantee"/>
+        <field name="GroupID"/>
+        <field name="GroupName"/>
+        <field name="BedReservation"/>
+        <field name="BlockCode"/>
+        <field name="NetRoomRevenue"/>
+        <field name="PartyID"/>
+        <field name="PartyName"/>
+        <field name="PartyMember"/>
+        <field name="PartyReservation"/>
+        <field name="ResStatusPriorCXL"/>
+        <field name="OptionDate"/>
+        <field name="Policy"/>
+        <field name="Hints"/>
+        <field name="LastUpdateTime"/>
+        <field name="CreationTime"/>
+        <field name="PackageCode"/>
+        <field name="Package"/>
+        <field name="NotesList"/>
+        <field name="Notes"/>
+      </fields>
+    </query>
+    <query ReqType="Profile" Name="Profile">
+      <conditions>
+        <condition name="ProfileID" operation="eq">477822</condition>
+      </conditions>
+      <fields>
+        <field name="ProfileID"/>
+        <field name="ProfileGlobalID"/>
+        <field name="ProfileExternalID"/>
+        <field name="GuestFirstname"/>
+        <field name="GuestName"/>
+        <field name="ProfileType"/>
+        <field name="ProfileCategory"/>
+        <field name="Title"/>
+        <field name="AddressGreeting"/>
+        <field name="LetterGreeting"/>
+        <field name="Birthday"/>
+        <field name="City"/>
+        <field name="Street1"/>
+        <field name="Street2"/>
+        <field name="Street3"/>
+        <field name="ZIP"/>
+        <field name="State"/>
+        <field name="CountryISO2"/>
+        <field name="CountryISO3"/>
+        <field name="Addresses"/>
+        <field name="Telephone"/>
+        <field name="Email"/>
+        <field name="Fax"/>
+        <field name="Communication"/>
+        <field name="Communications"/>
+        <field name="Gender"/>
+        <field name="DeleteCode"/>
+        <field name="NationalityISO2"/>
+        <field name="NationalityISO3"/>
+        <field name="Language"/>
+        <field name="VipCode"/>
+        <field name="Notes"/>
+        <field name="NotesList"/>
+        <field name="CreditStatus"/>
+        <field name="CreditReason"/>
+        <field name="LinkedProfile"/>
+        <field name="BirthPlace"/>
+        <field name="Department"/>
+        <field name="Position"/>
+        <field name="ProfileAttribute"/>
+        <field name="Membership"/>
+        <field name="PersonalDocument"/>
+        <field name="Notes"/>
+        <field name="ProfilePreferences"/>
+        <field name="ProfilePreference"/>
+        <field name="NoMailing"/>
+        <field name="NoEMailing"/>
+        <field name="GuestComment"/>
+        <field name="IncludeNotCommited"/>
+        <field name="CustomField"/>
+        <field name="CreditStatusChangeTime"/>
+        <field name="CentralSyncTime"/>
+        <field name="LastUpdateTime"/>
+        <field name="CreationTime"/>
+      </fields>
+    </query>
+    <query ReqType="Package" Name="Package">
+      <conditions>
+        <condition name="StartDate" operation="eq" dataType="String">01.06.2023</condition>
+        <link operator="AND">
+          <condition>
+            <condition name="EndDate" operation="eq" dataType="String">10.06.2023</condition>
+          </condition>
+        </link>
+      </conditions>
+      <fields>
+        <field name="PackageCode"/>
+        <field name="PackageName"/>
+        <field name="PackageWebDescription"/>
+        <field name="PackageLongWebDescription"/>
+        <field name="PackageWebMobileDescription"/>
+        <field name="PackageLongWebMobileDescription"/>
+        <field name="PackageFrequencyCode"/>
+        <field name="PackageFrequencyName"/>
+        <field name="PackageFrequencyWebName"/>
+        <field name="PackageFrequencyWebMobileName"/>
+        <field name="PackageCurrency"/>
+        <field name="PackageStart"/>
+        <field name="PackageEnd"/>
+        <field name="PackagePrice"/>
+        <field name="PackagePriceType"/>
+        <field name="PackageIncluded"/>
+        <field name="PackageSinglePerRes"/>
+        <field name="PackageShowInRes"/>
+        <field name="PackagePercentage"/>
+        <field name="PackageDisplOrder"/>
+        <field name="PackagePriceChildCategory"/>
+        <field name="PackageImage"/>
+      </fields>
+    </query>
+    <query ReqType="CustomQuery" Name="CustomQuery">
+      <conditions>
+        <condition name="Y" operation="eq" dataType="String">1</condition>
+      </conditions>
+      <fields>
+        <field name="XCMS_NAME3"/>
+      </fields>
+      <froms>
+        <from>XCMS</from>
+      </froms>
+    </query>
+    <query ReqType="RateList" Name="RateList">
+      <fields>
+        <field name="RateCode"/>
+        <field name="RateName"/>
+        <field name="RateDepartment"/>
+        <field name="RateWeekendDepartment"/>
+        <field name="RateWebInfo"/>
+        <field name="RateFolioText"/>
+        <field name="RateStartSell"/>
+        <field name="RateEndSell"/>
+        <field name="RateMinLOS"/>
+        <field name="RateMaxLOS"/>
+        <field name="RatePublic"/>
+        <field name="RateWebEnabled"/>
+        <field name="RateBAR"/>
+      </fields>
+    </query>
+    <query ReqType="ChildrenCategories" Name="ChildrenCategories">
+      <fields>
+        <field name="ChildrenCategoriesCode"/>
+        <field name="ChildrenCategoriesName"/>
+        <field name="ChildrenCategoriesFromAge"/>
+        <field name="ChildrenCategoriesToAge"/>
+      </fields>
+    </query>
+    <update ReqType="Reservation" Name="Reservation">
+      <conditions>
+        <condition name="GuestNum" operation="eq">239190</condition>
+      </conditions>
+      <fields>
+        <field name="ReservationComment1">hello</field>
+        <field name="NoOfAdults">2</field>
+        <field name="GuestArrival">01.06.2025</field>
+        <field attr="NF" noteID="5" value="note text" Delete="1" name="Notes">note text</field>
+        <field name="AccompanyingGuest" value="111" action="to_create">111</field>
+        <field name="AccompanyingGuest" value="222" addData="DELETE">222</field>
+        <field attr="EPE" Price="10" name="PackageCode">EPE</field>
+        <field name="CustomField" attr="XCMS_A">v1</field>
+        <field name="CustomField" attr="XCMS_B">v2</field>
+        <field name="Child" attr="CH1">2</field>
+      </fields>
+    </update>
+    <update ReqType="Profile" Name="Profile">
+      <conditions>
+        <condition name="ProfileID" operation="eq" dataType="String">477822</condition>
+      </conditions>
+      <fields>
+        <field name="GuestName">Doe</field>
+      </fields>
+    </update>
+    <insert ReqType="Profile" Name="Profile">
+      <fields>
+        <field name="ProfileType">1</field>
+        <field name="ProfileCategory">1</field>
+        <field name="GuestName">Prova SPA</field>
+        <field name="GuestFirstname">IT</field>
+        <field name="Email">a@b.c</field>
+        <field Type="PIV" name="Membership" value="IT98765432112">IT98765432112</field>
+      </fields>
+    </insert>
+    <insert ReqType="Reservation" Name="Reservation">
+      <fields>
+        <field name="RoomType">PZSTA</field>
+        <field name="GuestArrival">01.06.2023</field>
+        <field name="GuestDeparture">04.06.2023</field>
+        <field name="NoOfAdults">2</field>
+        <field name="NoOfRooms">1</field>
+        <field name="RateCode">W98_BB_AS</field>
+        <field name="ProfileID">0</field>
+        <field name="MarketCode">TUI</field>
+        <field name="SourceCode">DIR</field>
+        <field name="ChannelCode">WEB</field>
+        <field name="CrsResNumber">0</field>
+      </fields>
+    </insert>
+    <AvailabilityForWeb Name="AvailabilityForWeb">
+      <fields>
+        <field name="GuestArrival">01.06.2025</field>
+        <field name="GuestDeparture">04.06.2025</field>
+        <field name="NoOfAdults">2</field>
+        <field name="NoOfRooms">1</field>
+        <field name="Child" attr="CH1">1</field>
+      </fields>
+    </AvailabilityForWeb>
+    <command>
+      <cancel>
+        <GuestNum>1234</GuestNum>
+        <Reason>dup</Reason>
+        <DeleteTraces>1</DeleteTraces>
+        <SendEmail>0</SendEmail>
+      </cancel>
+    </command>
+    <command>
+      <cancel>
+        <GuestNum>5678</GuestNum>
+        <Reason/>
+        <DeleteTraces>0</DeleteTraces>
+        <SendEmail>0</SendEmail>
+      </cancel>
+    </command>
+    <command>
+      <post>
+        <crm_posting>
+          <GuestNum>1</GuestNum>
+          <DepartmentCode>2</DepartmentCode>
+          <DepartmentType>1</DepartmentType>
+          <Price>5</Price>
+          <Quantity>1</Quantity>
+          <Comment>c</Comment>
+        </crm_posting>
+      </post>
+    </command>
+  </request>
+</fidelio>

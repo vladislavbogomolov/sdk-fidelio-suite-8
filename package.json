@@ -17,8 +17,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit -p tsconfig.test.json",
-    "test": "jest --runInBand",
-    "test:watch": "jest --watchAll --runInBand --logHeapUsage",
+    "test": "TZ=UTC jest --runInBand",
+    "test:watch": "TZ=UTC jest --watchAll --runInBand --logHeapUsage",
+    "test:golden": "TZ=UTC jest test/golden",
+    "golden:update": "TZ=UTC ts-node -P tsconfig.test.json test/golden/helpers/update-golden.ts",
     "start": "nodemon playground.ts",
     "prepublishOnly": "npm run build",
     "prepare": "husky"

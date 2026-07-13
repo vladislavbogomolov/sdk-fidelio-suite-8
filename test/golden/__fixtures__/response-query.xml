@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<fidelio Version="1.1.0">
+  <response ID="1" Status="OK">
+    <queryResponse Name="Reservation">
+      <rows>
+        <row>
+          <fields>
+            <field name="GuestNum">239190</field>
+            <field name="GuestName">Doe</field>
+            <field name="NoOfAdults">2</field>
+            <field name="GuestArrival">01.06.2023</field>
+            <field name="CheckinDateTime">01.06.2023 14:30:00.000 UTC-60</field>
+            <field name="LastUpdateTime">02.06.2023 09:15:00.000 UTC-60</field>
+            <field name="Notes" attr="NF" noteID="7">"note body"</field>
+            <field name="Notes" attr="NX" noteID="8">plain text</field>
+            <field name="Membership" attr="1" Type="PIV">IT987</field>
+            <field name="Package" attr="EPE" Included="1">10.5</field>
+            <field name="CustomField" attr="XCMS_A">v1</field>
+            <field name="CustomField" attr="XCMS_B">v2</field>
+            <field name="AccompanyingGuest" attr="1" name1="A">111</field>
+            <field name="Email" attr="1" addData="3" CommType="1" PhoneRole="2" Primary="1">a@b.c</field>
+            <field name="Telephone">12345</field>
+            <field name="Street1" attr="4" addData="9">Via Roma 1</field>
+            <field name="City" attr="4" addData="9">Firenze</field>
+            <field name="PersonalDocument" attr="2" CountryID="105" NationalityID="105" IssuerCountryID="82" IssuerStateID="3" BornInID="4" BornStateID="5" Primary="1">AB123</field>
+            <field name="OptionDate">01.06.2023</field>
+            <field name="ReservationComment1"></field>
+          </fields>
+        </row>
+      </rows>
+    </queryResponse>
+  </response>
+</fidelio>

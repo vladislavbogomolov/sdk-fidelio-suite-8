@@ -1,0 +1,95 @@
+[
+  {
+    "GuestNum": 239190,
+    "GuestName": "Doe",
+    "NoOfAdults": 2,
+    "GuestArrival": "2023-06-01",
+    "CheckinDateTime": "2023-06-01T14:30:00.000Z",
+    "LastUpdateTime": "2023-06-02T09:15:00.000Z",
+    "Notes": [
+      {
+        "name": "Notes",
+        "attr": "NF",
+        "noteID": "7",
+        "value": "note body"
+      },
+      {
+        "name": "Notes",
+        "attr": "NX",
+        "noteID": "8",
+        "value": "plain text"
+      }
+    ],
+    "Membership": [
+      {
+        "name": "Membership",
+        "attr": "1",
+        "Type": "PIV",
+        "value": "IT987"
+      }
+    ],
+    "Package": [],
+    "PackageCode": [
+      {
+        "Price": 10.5,
+        "name": "Package",
+        "attr": "EPE",
+        "Included": "1"
+      }
+    ],
+    "CustomField": {
+      "XCMS_A": "v1",
+      "XCMS_B": "v2"
+    },
+    "AccompanyingGuest": [
+      {
+        "name": "AccompanyingGuest",
+        "attr": "1",
+        "name1": "A",
+        "value": 111
+      }
+    ],
+    "Communications": [
+      {
+        "name": "Email",
+        "attr": "1",
+        "addData": 3,
+        "CommType": 1,
+        "PhoneRole": 2,
+        "Primary": 1,
+        "value": "a@b.c"
+      }
+    ],
+    "Telephone": "12345",
+    "Addresses": [
+      {
+        "attr": "4",
+        "addData": 9,
+        "Street1": "Via Roma 1",
+        "Street2": null,
+        "Street3": null,
+        "City": "Firenze",
+        "State": null,
+        "CountryISO2": null,
+        "CountryISO3": null,
+        "PrimaryAddr": null
+      }
+    ],
+    "PersonalDocument": [
+      {
+        "name": "PersonalDocument",
+        "attr": 2,
+        "CountryID": 105,
+        "NationalityID": 105,
+        "IssuerCountryID": 82,
+        "IssuerStateID": 3,
+        "BornInID": 4,
+        "BornStateID": 5,
+        "Primary": 1,
+        "value": "AB123"
+      }
+    ],
+    "OptionDate": [],
+    "ReservationComment1": ""
+  }
+]
