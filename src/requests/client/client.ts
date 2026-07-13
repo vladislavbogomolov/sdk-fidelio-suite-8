@@ -1,5 +1,4 @@
 import axios, {InternalAxiosRequestConfig} from "axios";
-import 'dotenv/config'
 import JSZip from "jszip";
 import {parseResponse} from "../../responses";
 import {fidelioDebug} from "../../helpers/helpers";
