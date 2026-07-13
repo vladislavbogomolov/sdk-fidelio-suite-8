@@ -1,9 +1,15 @@
 import axios, {InternalAxiosRequestConfig} from "axios";
+import http from "node:http";
+import https from "node:https";
 import JSZip from "jszip";
 import {parseResponse} from "../../responses";
 import {fidelioDebug} from "../../helpers/helpers";
 
 export const axiosApiInstance = axios.create({
+    // Reuse TCP/TLS connections: the Fidelio IIS wrapper pays a full
+    // handshake per request otherwise.
+    httpAgent: new http.Agent({keepAlive: true}),
+    httpsAgent: new https.Agent({keepAlive: true}),
     headers: {
         "V8-supported": "Zip/Msg",
         "content-type": "V8/ZIP",

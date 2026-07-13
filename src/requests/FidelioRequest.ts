@@ -231,7 +231,9 @@ export class FidelioRequest {
         try {
             const body = this.getBody();
             this._requestObject = [];
-            return axiosApiInstance.post(this.connection.URL, body);
+            return axiosApiInstance.post(this.connection.URL, body, {
+                timeout: this.connection.TIMEOUT_MS ?? 60000,
+            });
         } catch (e) {
             return Promise.reject(e)
         }

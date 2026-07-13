@@ -11,4 +11,6 @@ export type IConnection = {
     IS_MASTER?: boolean;
     /** Hotel code (informational) */
     CODE?: string;
+    /** Per-request timeout in milliseconds; defaults to 60000, 0 disables */
+    TIMEOUT_MS?: number;
 }
