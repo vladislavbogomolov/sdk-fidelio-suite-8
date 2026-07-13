@@ -1,0 +1,67 @@
+[
+  {
+    "GuestFirstname": "Golden",
+    "GuestName": "SDK-TEST-mrjo7euk",
+    "ProfileID": 942153,
+    "ProfileType": 2,
+    "ProfileCategory": 4,
+    "AddressGreeting": "",
+    "Birthday": null,
+    "Email": "sdk-test-mrjo7euk@example.com",
+    "Gender": "",
+    "LetterGreeting": "",
+    "ZIP": "",
+    "Title": "",
+    "DeleteCode": 0,
+    "NationalityISO2": "",
+    "NationalityISO3": "",
+    "VipCode": "",
+    "ProfileGlobalID": 0,
+    "CreditStatus": "",
+    "CreditReason": "",
+    "Position": "",
+    "Department": "",
+    "BirthPlace": "",
+    "Language": "",
+    "NoMailing": 0,
+    "NoEMailing": 0,
+    "ProfileExternalID": 0,
+    "Addresses": [
+      {
+        "attr": "ADR",
+        "addData": 498874,
+        "Street1": null,
+        "Street2": null,
+        "Street3": null,
+        "City": "Testville",
+        "State": null,
+        "CountryISO2": "IT",
+        "CountryISO3": "ITA",
+        "PrimaryAddr": "1"
+      }
+    ],
+    "Communications": [
+      {
+        "name": "Email",
+        "attr": "EMA",
+        "addData": 193684,
+        "CommType": 1,
+        "PhoneRole": 0,
+        "Primary": 1,
+        "value": "sdk-test-mrjo7euk@example.com"
+      }
+    ],
+    "Notes": [],
+    "CentralSyncTime": null,
+    "LastUpdateTime": "2026-07-13T22:24:15.000Z",
+    "CreationTime": "2026-07-13T22:24:14.000Z",
+    "CreditStatusChangeTime": "",
+    "CustomField": {
+      "FREETEXT1": "",
+      "CREATEDINHOTEL": "Park Albatros",
+      "PA_CODE": "",
+      "SPLIT": "",
+      "MERGEDTO": ""
+    }
+  }
+]

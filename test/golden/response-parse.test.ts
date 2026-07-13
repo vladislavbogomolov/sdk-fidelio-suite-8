@@ -34,6 +34,14 @@ describe('Golden: response parsing', () => {
         expect(await parse('response-insert.xml')).toEqual(golden('response-insert.golden.json'));
     });
 
+    test('REAL captured profile query response (PATEST) matches golden JSON', async () => {
+        expect(await parse('response-query-real.xml')).toEqual(golden('response-query-real.golden.json'));
+    });
+
+    test('REAL captured profile insert response (PATEST) matches golden JSON', async () => {
+        expect(await parse('response-insert-real.xml')).toEqual(golden('response-insert-real.golden.json'));
+    });
+
     test('non-OK status rejects with FidelioError (status kept, newlines collapsed)', async () => {
         await expect(parse('response-error.xml')).rejects.toBeInstanceOf(FidelioError);
         await expect(parse('response-error.xml')).rejects.toMatchObject({

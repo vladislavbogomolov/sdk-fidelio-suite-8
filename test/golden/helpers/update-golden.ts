@@ -21,5 +21,7 @@ const updateResponseGolden = async (xmlName: string, goldenName: string) => {
     await updateResponseGolden('response-query.xml', 'response-query.golden.json');
     await updateResponseGolden('response-multi-query.xml', 'response-multi-query.golden.json');
     await updateResponseGolden('response-insert.xml', 'response-insert.golden.json');
+    await updateResponseGolden('response-query-real.xml', 'response-query-real.golden.json');
+    await updateResponseGolden('response-insert-real.xml', 'response-insert-real.golden.json');
     console.log('Golden fixtures updated. Review the diff carefully before committing.');
 })();
