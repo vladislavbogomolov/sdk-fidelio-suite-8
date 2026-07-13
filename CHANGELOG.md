@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v2.0.1...v2.1.0) (2026-07-13)
+
+
+### Features
+
+* field selection for find() and refetch-skipping writes ([4d3fc5d](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/commit/4d3fc5ddf376bb8daf796c6e6b9a66cfb11ae1e4))
+* keep-alive connection reuse and configurable request timeout ([2f762f1](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/commit/2f762f139193ec99410e46fee55a43c582da17e5))
+
 ## [2.0.1](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v2.0.0...v2.0.1) (2026-07-13)
 
 
