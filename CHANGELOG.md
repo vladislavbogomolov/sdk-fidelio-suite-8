@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v2.1.0...v2.1.1) (2026-07-14)
+
+
+### Bug Fixes
+
+* **deps:** bump axios to ^1.18.1 (25 advisories) and dayjs to ^1.11.21 ([b288ce0](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/commit/b288ce05b9e5292b5bf04a9715ec3493e2275759))
+
 # [2.1.0](https://github.com/vladislavbogomolov/sdk-fidelio-suite-8/compare/v2.0.1...v2.1.0) (2026-07-13)
 
 
