@@ -27,7 +27,7 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "keywords": [
     "fidelio",
@@ -40,8 +40,8 @@
   "author": "Vladislav Bogomolov",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.11.0",
-    "dayjs": "^1.11.13",
+    "axios": "^1.18.1",
+    "dayjs": "^1.11.21",
     "jszip": "^3.10.1",
     "xml2js": "^0.6.2"
   },

@@ -37,7 +37,8 @@ axiosApiInstance.interceptors.request.use(
 axiosApiInstance.interceptors.response.use(
     async (res) => {
 
-        if (res.headers['content-type'] && res.headers['content-type'].indexOf('V8/ZIP') !== -1) {
+        const contentType = res.headers['content-type'];
+        if (typeof contentType === 'string' && contentType.indexOf('V8/ZIP') !== -1) {
             fidelioDebug('received')
             const buff = Buffer.from(res.data, 'base64');
             const zip = new JSZip();
